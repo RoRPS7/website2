@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @attraction.name %>
+</p>
+
+<p>
+  <strong>X:</strong>
+  <%= @attraction.x %>
+</p>
+
+<p>
+  <strong>Y:</strong>
+  <%= @attraction.y %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @attraction.price %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @attraction.description %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @attraction.time %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @attraction.category_id %>
+</p>
+
+<%= link_to 'Edit', edit_attraction_path(@attraction) %> |
+<%= link_to 'Back', attractions_path %>
