@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>BialystokRoutes</title>
-  <%#= favicon_link_tag asset_path('logo.png') %>
+  <%= favicon_link_tag asset_path('logo.png') %>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
@@ -21,7 +21,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/" style="margin: auto;">
-    <%#= image_tag("logo_only.png", height: '50', width: '50') %>
+    <%= image_tag("logo_only.png", height: '50', width: '50') %>
     Bialystok Routes
   </a>
   <div class="container-fluid" >
@@ -40,14 +40,12 @@
         <li class="nav-item" ><%= link_to "Example tours", tours_path, class:"nav-link active"%></li>
 
       </ul>
-      <div style="color:white;">
-        <% if signed_in? %>
-          Signed in as: <%= current_user.email %>
-          <%= button_to 'Sign out', sign_out_path, method: :delete %>
-        <% else %>
-          <%= link_to 'Sign in', sign_in_path %>
-        <% end %>
-      </div>
+      <% if signed_in? %>
+        Signed in as: <%= current_user.email %>
+        <%= button_to 'Sign out', sign_out_path, method: :delete %>
+      <% else %>
+        <%= link_to 'Sign in', sign_in_path %>
+      <% end %>
 
       <div id="flash">
         <% flash.each do |key, value| %>
