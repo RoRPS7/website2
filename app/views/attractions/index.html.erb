@@ -25,7 +25,10 @@
         <td><%= attraction.price %></td>
         <td><%= attraction.description %></td>
         <td><%= attraction.time %></td>
-        <td><%= attraction.category.name %></td>
+        <td><% attraction.categories.each do |category| %>
+            <%= category.name %>
+            <% end %>
+            </td>
         <td><%= link_to 'Show', attraction %></td>
         <td><%= link_to 'Edit', edit_attraction_path(attraction) %></td>
         <td><%= link_to 'Destroy', attraction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
