@@ -15,11 +15,7 @@
     <% @tours.each do |tour| %>
       <tr>
         <td><%= tour.guide_id %></td>
-        <td>
-        <% tour.attractions.each do |attraction| %>
-            <%= attraction.name %><br>
-        <% end %>
-        </td>
+        <td><%= tour.attraction_id %></td>
         <td><%= link_to 'Show', tour %></td>
         <td><%= link_to 'Edit', edit_tour_path(tour) %></td>
         <td><%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?' } %></td>
