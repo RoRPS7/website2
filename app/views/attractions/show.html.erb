@@ -1,41 +1,64 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Nazwa atrakcji:</strong>
   <%= @attraction.name %>
 </p>
 
 <p>
-  <strong>X:</strong>
-  <%= @attraction.x %>
-</p>
-
-<p>
-  <strong>Y:</strong>
-  <%= @attraction.y %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @attraction.price %>
-</p>
-
-<p>
-  <strong>Description:</strong>
+  <strong>Opis obiektu:</strong>
   <%= @attraction.description %>
 </p>
-
 <p>
-  <strong>Time:</strong>
+
+  <% if @attraction.price > 0%>
+    <strong>Opłata:</strong>
+    <%= @attraction.price %>
+  <%else %>
+    <strong>Wstęp bezpłatny!</strong>
+  <%end %>
+
+</p>
+<p>
+  <strong>Godziny otwarcia:</strong>
   <%= @attraction.time %>
 </p>
 
 <p>
-  <strong>Category:</strong>
-  <% @attraction.categories.each do |category| %>
-  <%= category.name %>
-  <% end %>
-</p>
+  <ul>
+    <% if @attraction.categories %>
+      <strong>Rodzaj kategorii:</strong>
+      <% @attraction.categories.each do |category| %>
+        <li><%= category.name %></li>
+      <%end %>
+      <% else %>
+     <strong>Nie przypisano kategorii dla tego obiektu</strong>
+    <% end %>
+  </ul>
 
+</p>
+<div style='width: 50%;'>
+  <div id="map" style='width: 100%; height: 400px;'></div>
+</div>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7vOoTEHKZlV89hsFiNdshzf74UMM_dnk&callback=initMap&libraries=&v=weekly"
+  async
+></script>
+<script type="text/javascript">
+    function initMap() {
+        // The location of Uluru
+        const uluru = { lat: <%= @attraction.x %>, lng: <%= @attraction.y %> };
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 16,
+            center: uluru,
+        });
+        // The marker, positioned at Uluru
+        const marker = new google.maps.Marker({
+            position: uluru,
+            map: map,
+        });
+    }
+</script>
 <%= link_to 'Edit', edit_attraction_path(@attraction) %> |
 <%= link_to 'Back', attractions_path %>
