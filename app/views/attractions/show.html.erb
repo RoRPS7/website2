@@ -32,7 +32,9 @@
 
 <p>
   <strong>Category:</strong>
-  <%= @attraction.category_id %>
+  <% @attraction.categories.each do |category| %>
+  <%= category.name %>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_attraction_path(@attraction) %> |
