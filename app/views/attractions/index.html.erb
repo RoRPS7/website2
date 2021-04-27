@@ -1,7 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Attractions</h1>
-
+<h1> Wybierz swoje atrakcje! </h1>
+<p>
+  Poniżej zamieszczono wszystkie atrakcje w Białymstoku i okolicy! Możesz się z nimi zapoznać
+  klikając w przycisk "Pokaż", lub od razu dodać do koszyka!
+</p>
 <table>
   <thead>
     <tr>
@@ -28,9 +31,10 @@
             <%= category.name %>
             <% end %>
             </td>
-        <td><%= link_to 'Show', attraction %></td>
-        <td><%= link_to 'Edit', edit_attraction_path(attraction) %></td>
-        <td><%= link_to 'Destroy', attraction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="btn btn-info"><%= link_to 'Pokaż', attraction %></td>
+        <td><button class="btn btn-success">Dodaj do koszyka!</button></td>
+<!--        <td><%#= link_to 'Edit', edit_attraction_path(attraction) %></td>-->
+<!--        <td><%#= link_to 'Destroy', attraction, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
       </tr>
     <% end %>
   </tbody>
@@ -38,5 +42,5 @@
 
 <br>
 
-<%= link_to 'New Attraction', new_attraction_path %>
-<%= link_to 'Main Page', root_path %>
+<%#= link_to 'New Attraction', new_attraction_path %>
+<%= link_to 'Powrót do strony głównej', root_path %>

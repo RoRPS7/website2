@@ -47,10 +47,12 @@
 
       </ul>
       <% if signed_in? %>
-        <i style="color:white">Signed in as: <%= current_user.email %></i>
-        <%= button_to 'Sign out', sign_out_path, method: :delete %>
+        <i style="color:white">Zalogowano jako: <%= current_user.email %></i>
+        <%= button_to 'Wyloguj sie', sign_out_path, method: :delete, form_class: "btn btn-success" %>
       <% else %>
-        <%= link_to 'Sign in', sign_in_path %>
+        <div class="btn btn-success">
+        <%= link_to 'Zaloguj sie', sign_in_path %>
+        </div>
       <% end %>
 
       <div id="flash">
@@ -65,7 +67,8 @@
   <%= yield %>
 </div>
 <footer class="bg-dark text-center text-white">
-  © 2021 Copyright:
+  Kontakt email: <strong> bialystokroutes@gmail.com</strong><br><br>
+  © 2021 Copyright: BialystokRoutes <i> All rights reserved. </i>
 </footer>
 </body>
 </html>

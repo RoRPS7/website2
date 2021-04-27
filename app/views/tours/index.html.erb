@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Tours</h1>
+<h1>Przykładowe trasy</h1>
+<p>Zamiast tworzyć trasę od zera możesz wykorzystać przykładowe trasy z atrakcjami poniżej.</p>
 
 <table>
   <thead>
     <tr>
-      <th>Guide</th>
-      <th>Attractions</th>
+      <th>Lista przykładowych tras</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,7 +14,6 @@
   <tbody>
     <% @tours.each do |tour| %>
       <tr>
-        <td><%= tour.guide_id %></td>
         <td><% tour.attractions.each do |attraction| %>
           <%= attraction.name %>
           <% end %>

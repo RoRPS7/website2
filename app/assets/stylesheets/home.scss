@@ -1,3 +1,93 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+body {
+  background: url("https://lesilets.com/wp-content/uploads/2018/04/1096907-cool-dark-background-2560x1600-for-tablet.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+li {
+  color: #CCCCCC;
+}
+h1 {
+  color: #CCCCCC;
+}
+
+p {
+  color: #CCCCCC;
+}
+
+.header {
+  width: 100%;
+  height: 80px;
+  display: block;
+  overflow: auto;
+  /*background-color: #101010;*/
+  background-color: #050f8f;
+  /*background-image: url("https://cdn.pixabay.com/photo/2016/08/03/09/04/universe-1566161_960_720.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;*/
+
+}
+
+.wrapper {
+  /*margin-left: 10px;*/
+  align-self: center;
+  width: 350px;
+  /*width: 100%;*/
+  /*height: 50px;*/
+  margin: 0 auto;
+  position: absolute;
+}
+.wrapper ul {
+  list-style: none;
+  margin-left: 2%;
+  margin-top: 2%;
+}
+.wrapper ul li {
+  background: #262626;
+  width: 170px;
+  /*border: 1px solid #fff;*/
+  box-shadow:0 0 1px 1px #fff;
+  height: 30px;/*50px*/
+  line-height: 30px;/*50px*/
+  text-align: center;
+  float: left;
+  color: #fff;
+  font-size: 14px;
+  position: relative;
+  font-family: big john, serif;
+}
+.wrapper ul li:hover {
+  background: crimson;
+  border: transparent;
+}
+.wrapper ul ul {
+  display: none;
+}
+/*.wrapper ul ul li a {
+    color: aqua;
+}*/
+.wrapper ul li:hover > ul {
+  display: block;
+  margin-top: 0;
+  margin-left: 0;
+}
