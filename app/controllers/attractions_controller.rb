@@ -38,7 +38,7 @@ class AttractionsController < ApplicationController
   def update
     respond_to do |format|
       if @attraction.update(attraction_params)
-        format.html { redirect_to @attraction, notice: "Attraction was successfully updated." }
+        #format.html { redirect_to @attraction, notice: "Attraction was successfully updated." }
         format.json { render :show, status: :ok, location: @attraction }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,7 +51,7 @@ class AttractionsController < ApplicationController
   def destroy
     @attraction.destroy
     respond_to do |format|
-      format.html { redirect_to attractions_url, notice: "Attraction was successfully destroyed." }
+      #format.html { redirect_to attractions_url, notice: "Attraction was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -64,6 +64,6 @@ class AttractionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def attraction_params
-      params.require(:attraction).permit(:name, :x, :y, :price, :description, :time, :category_id)
+      params.require(:attraction).permit(:name, :x, :y, :price, :description, :time)
     end
 end

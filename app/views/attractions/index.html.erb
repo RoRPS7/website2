@@ -31,16 +31,24 @@
             <%= category.name %>
             <% end %>
             </td>
-        <td class="btn btn-info"><%= link_to 'Pokaż', attraction %></td>
-        <td><button class="btn btn-success">Dodaj do koszyka!</button></td>
-<!--        <td><%#= link_to 'Edit', edit_attraction_path(attraction) %></td>-->
-<!--        <td><%#= link_to 'Destroy', attraction, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+        <td><%= link_to 'Pokaż', attraction, class:"btn btn-info"%></td>
+        
+        <td><%= link_to 'Dodaj do koszyka!', '#' , class:"btn btn-success" %></td>
+        
+        <%if current_user && current_user.admin%>
+        
+          <td><%= link_to 'Edytuj', edit_attraction_path(attraction), class:"btn btn-danger" %></td>
+          <td><%= link_to 'Usuń', attraction, method: :delete, data: { confirm: 'Czy jesteś pewien?' }, class:"btn btn-danger" %></td>
+        <%end%>
+       
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+<%if current_user && current_user.admin%>     
+  <%= link_to 'Nowa atrakcja', new_attraction_path %>
+<%end%>
 
-<%#= link_to 'New Attraction', new_attraction_path %>
 <%= link_to 'Powrót do strony głównej', root_path %>

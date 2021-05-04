@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/" style="margin: auto;">
+    <%= image_tag("logo_only.png", height: '50', width: '50') %>
+    Bialystok Routes
+    <%if current_user && current_user.admin%>
+    <strong style="color:#dc3545">AdminPanel</strong>
+    <% end %>
+  </a>
+  <div class="container-fluid" >
+    <!--      <div align="center">-->
+    <!--      </div>-->
+    <button style="margin: auto; width: 25%;" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="text-align: center">
+
+<!--        <li class="nav-item" ><%#= link_to "My categories", categories_path, class:"nav-link active"%></li>-->
+        <li class="nav-item" ><%= link_to "Dostępne atrakcje", attractions_path, class:"nav-link active"%></li>
+        <li class="nav-item" ><%= link_to "Przewodnicy", guides_path , class:"nav-link active"%></li>
+        <li class="nav-item" ><%= link_to "Zniżki", discounts_path, class:"nav-link active"%></li>
+        <li class="nav-item" ><%= link_to "Przykładowe trasy", tours_path, class:"nav-link active"%></li>
+
+      </ul>
+      
+    </div>
+    </div>
+  </div>
+
+   <% if current_user %>
+        <div style="color:white;margin:auto;>
+        <strong style="color:white;margin:auto;">Witaj! <%= current_user.email %> </strong>
+        <%= link_to 'Sign out', destroy_user_session_path, class:"btn btn-outline-success", 
+                                                          method: :delete %>
+        </div>
+      <% else %>
+
+        <%= link_to 'Log in ', new_user_session_path, class:"btn btn-outline-success" %>
+      
+      <%end%>
+
+
+</nav>

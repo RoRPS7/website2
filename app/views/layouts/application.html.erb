@@ -25,50 +25,11 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/" style="margin: auto;">
-    <%= image_tag("logo_only.png", height: '50', width: '50') %>
-    Bialystok Routes
-  </a>
-  <div class="container-fluid" >
-    <!--      <div align="center">-->
-    <!--      </div>-->
-    <button style="margin: auto; width: 25%;" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="text-align: center">
-
-<!--        <li class="nav-item" ><%#= link_to "My categories", categories_path, class:"nav-link active"%></li>-->
-        <li class="nav-item" ><%= link_to "Dostępne atrakcje", attractions_path, class:"nav-link active"%></li>
-        <li class="nav-item" ><%= link_to "Przewodnicy", guides_path , class:"nav-link active"%></li>
-        <li class="nav-item" ><%= link_to "Zniżki", discounts_path, class:"nav-link active"%></li>
-        <li class="nav-item" ><%= link_to "Przykładowe trasy", tours_path, class:"nav-link active"%></li>
-
-      </ul>
-      <% if signed_in? %>
-        <i style="color:white">Zalogowano jako: <%= current_user.email %></i>
-        <%= button_to 'Wyloguj sie', sign_out_path, method: :delete, form_class: "btn btn-success" %>
-      <% else %>
-        <div class="btn btn-success">
-        <%= link_to 'Zaloguj sie', sign_in_path %>
-        </div>
-      <% end %>
-
-      <div id="flash">
-        <% flash.each do |key, value| %>
-          <div class="flash <%= key %>"><%= value %></div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</nav>
+  <%= render 'layouts/header'%>
 <div class="container-md" style="min-height:80vh;">
+  <%= render 'layouts/alerts'%>
   <%= yield %>
 </div>
-<footer class="bg-dark text-center text-white">
-  Kontakt email: <strong> bialystokroutes@gmail.com</strong><br><br>
-  © 2021 Copyright: BialystokRoutes <i> All rights reserved. </i>
-</footer>
+  <%= render 'layouts/footer'%>
 </body>
 </html>
