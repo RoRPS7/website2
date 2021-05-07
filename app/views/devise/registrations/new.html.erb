@@ -22,6 +22,8 @@
   </div>
 
   <div class="actions">
+    <%= flash[:recaptcha_error] %>
+    <%= recaptcha_tags %>
     <%= f.submit "Zarejestruj się!" %>
   </div>
 <% end %>

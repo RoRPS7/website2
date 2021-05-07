@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users do
+  devise_for :users, controllers: { passwords: "users/passwords", registrations: 'users/registrations' } do
     get '/users/sign_out' => 'devise/sessions#destroy'
-  end 
+  end
   resources :tours
   resources :discounts
   resources :guides
