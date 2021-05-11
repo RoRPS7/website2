@@ -11,42 +11,82 @@
     </div>
   <% end %>
 
+  <script>
+      function initMap() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 13,
+          center: { lat: 53.12898506834695, lng: 23.151252841693463 },
+        });
+        const geocoder = new google.maps.Geocoder();
+        document.getElementById("submit").addEventListener("click", () => {
+          geocodeAddress(geocoder, map);
+        });
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+        const address = document.getElementById("attraction_name").value;
+        geocoder.geocode({ address: address }, (results, status) => {
+          if (status === "OK") {
+            resultsMap.setCenter(results[0].geometry.location);
+            document.getElementById("attraction_x").value = results[0].geometry.location.lat()
+            document.getElementById("attraction_y").value = results[0].geometry.location.lng()
+            new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location,
+            });
+          } else {
+            alert(
+              "Geocode was not successful for the following reason: " + status
+            );
+          }
+        });
+      }
+    </script>
+  
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7vOoTEHKZlV89hsFiNdshzf74UMM_dnk&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+
   <div class="field">
-    <%= form.label :name %>
+    <%= form.label :Nazwa_atrakcji %>
     <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :x %>
-    <%= form.text_field :x %>
-  </div>
-
-  <div class="field">
+    <div id="floating-panel">
+      <input id="submit" type="button" value="Uzyskaj koordynaty" />
+      <%= form.label :x %>
+    <%= form.text_field :x%>
     <%= form.label :y %>
-    <%= form.text_field :y %>
+    <%= form.text_field :y%>
+    </div>
   </div>
 
+  <div id="map" style='width: 60%; height: 400px;'></div>
+
+
   <div class="field">
-    <%= form.label :price %>
+    <%= form.label :Cena %><br/>
     <%= form.text_field :price %>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
+    <%= form.label :Opis %> <br/>
+    <%= form.text_area :description, rows: '5', cols: '50' %>
   </div>
 
   <div class="field">
-    <%= form.label :time %>
+    <%= form.label :Godziny_otwarcia %> <br/>
     <%= form.text_area :time %>
   </div>
 
   <div class="field">
-    <%= form.label :category_id %>
+    <%= form.label :Kategoria %>
     <%= form.text_field :category_id %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Utwórz', :class => 'btn btn-primary'%>
   </div>
+  
 <% end %>

@@ -29,13 +29,19 @@
 
    <% if current_user %>
         <div style="color:white;margin:auto;>
-        <strong style="color:white;margin:auto;">Witaj! <%= current_user.email %> </strong>
-        <%= button_to 'Sign out', destroy_user_session_path, class:"btn btn-outline-success",
+        <strong style="color:white;margin:auto;">Witaj
+        <%if current_user.admin %>
+        adminie!
+        <%else%>
+        <%= current_user.email %> !
+        <%end%>
+         </strong>
+        <%= button_to 'Wyloguj się', destroy_user_session_path, class:"btn btn-outline-success",
                                                           method: :delete %>
         </div>
       <% else %>
 
-        <%= link_to 'Log in ', new_user_session_path, class:"btn btn-outline-success" %>
+        <%= link_to 'Zaloguj się', new_user_session_path, class:"btn btn-outline-success" %>
       
       <%end%>
 
