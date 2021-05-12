@@ -76,13 +76,14 @@
   </div>
 
   <div class="field">
-    <%= form.label :Godziny_otwarcia %> <br/>
-    <%= form.text_area :time %>
+    <%= form.label :Czas_zwiedzania %> <br/>
+    <%= form.text_area :sightseeing_time %>
   </div>
 
   <div class="field">
     <%= form.label :Kategoria %>
-    <%= form.text_field :category_id %>
+    <%#= form.text_field :category_id %>
+    <%= form.collection_select :category_id, Category.order(:name),:id,:name, include_blank: true %>
   </div>
 
   <div class="actions">

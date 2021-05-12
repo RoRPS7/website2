@@ -10,7 +10,7 @@
     <tr>
       <th>Nazwa obiektu</th>
       <th>Oplata</th>
-      <th>Godziny otwarcia</th>
+      <th>Czas zwiedzania</th>
       <th>Kategoria</th>
       <th colspan="3"></th>
     </tr>
@@ -26,7 +26,7 @@
           <%else %>
             <strong>Obiekt bezpłatny</strong>
           <%end %></td>
-        <td><%= attraction.time %></td>
+        <td><%= attraction.sightseeing_time %></td>
         <td><% attraction.categories.each do |category| %>
             <%= category.name %>
             <% end %>
