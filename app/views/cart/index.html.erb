@@ -1,0 +1,43 @@
+<h1>Zawartość Twojego koszyka</h1>
+
+ <% if @cart.empty?%>
+    Koszyk jest pusty.
+    <% else %>
+<table class="table table-striped">
+  <thead>
+   <tr>
+      <th scope="col">Nazwa obiektu</th>
+      <th scope="col">Oplata</th>
+      <th scope="col">Czas zwiedzania</th>
+      <th scope="col">Kategoria</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+   
+     <% @cart.each do |attraction| %>
+    <tr>
+        <td><%= attraction.name %></td>
+        <td><% if attraction.price > 0%>
+            <strong>Opłata:</strong>
+            <%= attraction.price %>
+          <%else %>
+            <strong>Obiekt bezpłatny</strong>
+          <%end %></td>
+        <td><%= attraction.sightseeing_time %></td>
+        <td><% attraction.categories.each do |category| %>
+            <%= category.name %>
+            <% end %>
+        </td>
+        <td><%= button_to "Usuń z koszyka", remove_from_cart_path(attraction), method: :delete, class:"btn btn-danger"%></td>
+    </tr>
+    <% end %>
+    <tr>
+        <td colspan="4" style="text-align:right">
+            <%= link_to "Generuj trase", "#", class:"btn btn-success"%>
+        </td>
+    </tr>
+  </tbody>
+</table>
+<% end %>
+

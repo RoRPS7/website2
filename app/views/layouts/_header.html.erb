@@ -28,6 +28,7 @@
   </div>
 
    <% if current_user %>
+        <%= link_to "Koszyk", cart_path, class:"btn btn-outline-success"%>
         <div style="color:white;margin:auto;>
         <strong style="color:white;margin:auto;">Witaj
         <%if current_user.admin %>

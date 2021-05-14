@@ -32,9 +32,13 @@
             <% end %>
             </td>
         <td><%= link_to 'Pokaż', attraction, class:"btn btn-info"%></td>
-        
-        <td><%= link_to 'Dodaj do koszyka!', '#' , class:"btn btn-success" %></td>
-        
+
+         <% if @cart.include?(attraction) %>
+         <td><%= button_to "Usuń z koszyka", remove_from_cart_path(attraction), method: :delete, class:"btn btn-danger"%></td>
+          <% else %>
+          <td><%= button_to "Dodaj do koszyka", add_to_cart_path(attraction), class:"btn btn-success" %></td>
+          <% end %>
+
         <%if current_user && current_user.admin%>
         
           <td><%= link_to 'Edytuj', edit_attraction_path(attraction), class:"btn btn-danger" %></td>
