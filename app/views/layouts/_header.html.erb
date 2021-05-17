@@ -20,7 +20,9 @@
         <li class="nav-item" ><%= link_to "Przewodnicy", guides_path , class:"nav-link active"%></li>
         <li class="nav-item" ><%= link_to "Zniżki", discounts_path, class:"nav-link active"%></li>
         <li class="nav-item" ><%= link_to "Przykładowe trasy", tours_path, class:"nav-link active"%></li>
-
+        <%if current_user && current_user.admin%>
+        <li class="nav-item" ><%= link_to "Panel administracyjny", rails_admin_path, class:"nav-link active text-danger"%></li>
+        <% end %>
       </ul>
       
     </div>
@@ -29,14 +31,6 @@
 
    <% if current_user %>
         <%= link_to "Koszyk", cart_path, class:"btn btn-outline-success"%>
-        <div style="color:white;margin:auto;>
-        <strong style="color:white;margin:auto;">Witaj
-        <%if current_user.admin %>
-        adminie!
-        <%else%>
-        <%= current_user.email %> !
-        <%end%>
-         </strong>
         <%= button_to 'Wyloguj się', destroy_user_session_path, class:"btn btn-outline-success",
                                                           method: :delete %>
         </div>
