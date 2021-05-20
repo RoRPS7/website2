@@ -1,0 +1,46 @@
+
+  <script>
+      function initMap() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 13,
+          center: { lat: 53.12898506834695, lng: 23.151252841693463 },
+        });
+        const geocoder = new google.maps.Geocoder();
+        document.getElementById("submit").addEventListener("click", () => {
+          geocodeAddress(geocoder, map);
+        });
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+        const address = document.getElementById("attraction_name").value;
+        geocoder.geocode({ address: address }, (results, status) => {
+          if (status === "OK") {
+            resultsMap.setCenter(results[0].geometry.location);
+            document.getElementById("attraction_x").value = results[0].geometry.location.lat()
+            document.getElementById("attraction_y").value = results[0].geometry.location.lng()
+            new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location,
+            });
+          } else {
+            alert(
+              "Geocode was not successful for the following reason: " + status
+            );
+          }
+        });
+      }
+    </script>
+  
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7vOoTEHKZlV89hsFiNdshzf74UMM_dnk&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+
+
+    <div id="floating-panel">
+      <input id="submit" type="button" value="Uzyskaj koordynaty" />
+  </div>
+
+  <div id="map" style='width: 60%; height: 400px;'></div>
