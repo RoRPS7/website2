@@ -5,15 +5,15 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version 2.7.2
 
 * System dependencies
 
-* Configuration
+* Configuration bundle install
 
-* Database creation
+* Database creation rails db:schema:load
 
-* Database initialization
+* Database initialization rails db:seed
 
 * How to run the test suite
 
