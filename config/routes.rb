@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'cart/index'
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, controllers: { passwords: "users/passwords", registrations: 'users/registrations' } do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   get "/cart", to: "cart#index"
   resources :categories
   root :to => "home#index"
+  get 'cart/index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
