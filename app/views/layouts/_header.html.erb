@@ -31,6 +31,7 @@
 
    <% if current_user %>
         <%= link_to "Koszyk", cart_path, class:"btn btn-outline-success"%>
+        <%= link_to "Trasy", my_tours_path,  class:"btn btn-outline-success"%>
         <%= button_to 'Wyloguj się', destroy_user_session_path, class:"btn btn-outline-success",
                                                           method: :delete %>
         </div>

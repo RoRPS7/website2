@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
   resources :tours
+  get "my_tours", to: "tours#my", as: "my_tours"
   resources :discounts
   resources :guides
   resources :attractions
@@ -12,6 +13,5 @@ Rails.application.routes.draw do
   get "/cart", to: "cart#index"
   resources :categories
   root :to => "home#index"
-  get 'cart/index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -6,6 +6,10 @@ class ToursController < ApplicationController
     @tours = Tour.all
   end
 
+  def my
+    @tours = current_user.tours
+  end
+
   # GET /tours/1 or /tours/1.json
   def show
   end
@@ -64,6 +68,6 @@ class ToursController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tour_params
-      params.require(:tour).permit(:guide_id, :attraction_id)
+      params.require(:tour).permit(:guide_id, {attraction_ids: []})
     end
 end
