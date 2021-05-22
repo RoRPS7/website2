@@ -1,32 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<%= stylesheet_link_tag "tours"%>
+
 <p id="notice"><%= notice %></p>
 
-<h1>Przykładowe trasy</h1>
-<p>Zamiast tworzyć trasę od zera możesz wykorzystać przykładowe trasy z atrakcjami poniżej.</p>
+<h1 class="header">Przykładowe trasy</h1>
+<p>Brak pomysłu na wycieczkę? Skorzystaj z proponowanych tras:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Lista przykładowych tras</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<body>
+  <% @tours.each do |tour| %>
+    <% if !tour.users.any?  %>
+      <button type="button" class="collapsible-header">Nazwa trasy</button>
+      <div class="content">
+        <h3>Atrakcje:</h3>
+          <ol>
+            <% tour.attractions.each do |attraction| %>
+              <li>
+                <%= attraction.name %>
+                <%= link_to 'Pokaż', attraction, class:"btn btn-info"%>
+              </li>
+            <%end %>
+          </ol>
 
-  <tbody>
-    <% @tours.each do |tour| %>
-      <tr>
-        <td><% tour.attractions.each do |attraction| %>
-          <%= attraction.name %>
+        <table>
+
+          <% if current_user %>
+            <%# else %> <!--remove_from_cart_path(attraction), method: :delete,-->
+            <td> <%= button_to "Dodaj do koszyka", class:"btn btn-success" %> <td>
+            <%# end %> <!-- add_to_cart_path(attraction),-->
+            <%# if current_user. include?(tour) %> <!--TODO: Dodaj trasę do konta. Ewentualnie zastapienie koszyka po zapytaniu jesli jest jakas zawartosc-->
+            <td> <%= button_to "Usuń z koszyka", class:"btn btn-danger"%> <td>
           <% end %>
-            </td>
-        <td><%= link_to 'Show', tour %></td>
-        <td><%= link_to 'Edit', edit_tour_path(tour) %></td>
-        <td><%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+          <%if current_user && current_user.admin%>
+            <%#= stylesheet_link_tag "inline" %>
+            <td> <%= link_to 'Edytuj', edit_tour_path(tour), class:"btn btn-danger" %> </td>
+            <td> <%= link_to 'Usuń',  data: { confirm: 'Czy jesteś pewien?' }, class:"btn btn-danger" %> </td>
+            <!-- tour, method: :delete,-->
+          <%end%>
+        </table>
+      </div>
+    <%end %>
+  <%end %>
+</body>
 
-<%= link_to 'New Tour', new_tour_path %>
-<%= link_to 'Main Page', root_path %>
+  <script>
+      var coll = document.getElementsByClassName("collapsible-header");
+      var i;
+
+      for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+              this.classList.toggle("active");
+              var content = this.nextElementSibling;
+              if (content.style.display === "block") {
+                  content.style.display = "none";
+              } else {
+                  content.style.display = "block";
+              }
+          });
+      }
+  </script>
+
+<script>
+      $(document).ready(function () { $('.data-toggle').collapse();});
+  </script>
+
+</html>
