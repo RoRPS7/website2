@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_04_174206) do
+ActiveRecord::Schema.define(version: 2021_05_22_141029) do
 
   create_table "attractions", force: :cascade do |t|
     t.string "name"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2021_05_04_174206) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "time"
+    t.integer "sightseeing_time"
   end
 
   create_table "attractions_categories", id: false, force: :cascade do |t|
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(version: 2021_05_04_174206) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "guide_id", null: false
+    t.integer "attraction_start_id"
+    t.integer "attraction_end_id"
     t.index ["guide_id"], name: "index_tours_on_guide_id"
   end
 
