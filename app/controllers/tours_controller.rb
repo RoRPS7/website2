@@ -1,5 +1,6 @@
 class ToursController < ApplicationController
   before_action :set_tour, only: %i[ show edit update destroy ]
+  before_action :set_my_tour, only: %i[ my_show destroy ]
   # GET /tours or /tours.json
   def index
     @tours = Tour.all
@@ -7,6 +8,9 @@ class ToursController < ApplicationController
 
   def my
     @tours = current_user.tours
+  end
+
+  def my_show
   end
 
   # GET /tours/1 or /tours/1.json
@@ -58,10 +62,22 @@ class ToursController < ApplicationController
     end
   end
 
+  def destroy
+    @tour.destroy
+    respond_to do |format|
+      format.html { redirect_to tours_url, notice: "Tour was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tour
       @tour = Tour.find(params[:id])
+    end
+
+    def set_my_tour
+      @tour = current_user.tours.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

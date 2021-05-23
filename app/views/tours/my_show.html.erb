@@ -1,0 +1,20 @@
+<p>
+
+  <% @guide = Guide.find(@tour.guide_id) %>
+  <% if !@guide.nil? %>
+    <strong>Przewodnik trasy:</strong>
+    <%= @guide.name %>
+    <%= @guide.surname %>
+    <strong> Telefon kontaktowy: </strong>
+    <%= @guide.telnumber %>
+    <% end %>
+</p>
+
+<p>
+  <strong>Trasa:</strong>
+  Start -->
+  <% @tour.attractions.each do |attraction| %>
+    <%= attraction.name %> -->
+  <% end %>
+  Koniec trasy
+</p>
