@@ -1,3 +1,65 @@
 // Place all the styles related to the Tours controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.header {
+  padding: 10px;
+  text-align: center;
+  color: #4CAF50;
+  font-size: 48px;
+  font-family: Arial;
+}
+
+.collapsible-header {
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  padding: 20px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 20px;
+}
+
+.collapsible-header:hover {
+  background-color: #4CAF00;
+}
+
+.collapsible-header:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+
+.collapsible-header.active {
+  background-color: #4CAF00;
+}
+
+.collapsible-header.active:after{
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1fff1;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.content{
+  padding: 20px;
+}
