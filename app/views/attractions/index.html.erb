@@ -41,12 +41,6 @@
           <% end %>
          <% end %>
 
-        <%if current_user && current_user.admin%>
-        
-          <td><%= link_to 'Edytuj', edit_attraction_path(attraction), class:"btn btn-danger" %></td>
-          <td><%= link_to 'Usuń', attraction, method: :delete, data: { confirm: 'Czy jesteś pewien?' }, class:"btn btn-danger" %></td>
-        <%end%>
-       
       </tr>
     <% end %>
   </tbody>

@@ -1,5 +1,21 @@
-<h1>Zawartość Twojego koszyka</h1>
+<%=  form_for :tour do |f| %> 
 
+<h1>Zawartość Twojego koszyka</h1>
+      <script>
+      function showGuides () {
+      // Get the checkbox
+       var checkBox = document.getElementById("guide");
+      // Get the output text
+       var text = document.getElementById("guides_list");
+
+       // If the checkbox is checked, display the output text
+      if (checkBox.checked == true){
+          text.style.display = "block";
+      } else {
+        text.style.display = "none";
+      }
+}
+      </script>
  <% if @cart.empty?%>
     Koszyk jest pusty.
     <% else %>
@@ -14,9 +30,8 @@
     </tr>
   </thead>
   <tbody>
-   
      <% @cart.each do |attraction| %>
-    <tr>
+    <tr> 
         <td><%= attraction.name %></td>
         <td><% if attraction.price > 0%>
             <strong>Opłata:</strong>
@@ -32,12 +47,21 @@
         <td><%= button_to "Usuń z koszyka", remove_from_cart_path(attraction), method: :delete, class:"btn btn-danger"%></td>
     </tr>
     <% end %>
-    <tr>
-        <td colspan="4" style="text-align:right">
-            <%= link_to "Generuj trase", "#", class:"btn btn-success"%>
-        </td>
-    </tr>
   </tbody>
 </table>
+    Wybierz atrakcję z której będziesz zaczynać podróż:</br>
+    <%= f.select( :attraction_start_id, options_from_collection_for_select( @cart, "id", "name"))%></br> 
+    Wybierz atrakcję na której zakończysz podróż:</br> 
+     <%= f.select(:attraction_end_id, options_from_collection_for_select( @cart, "id", "name"))%> </br> </br> 
+     Czy chcesz wybrać przewodnika? <%= check_box_tag 'guide', 1, false, :onclick=>"showGuides()"%>
+     <p id="guides_list" style="display:none">
+      <%= f.select(:guide_id, options_from_collection_for_select(Guide.all, "id", "name_and_surname")) %>
+     </p>
+
+     <div class="actions">
+    <%= f.submit "Utwórz trasę!",class: "btn btn-outline-success"%>
+  </div> 
 <% end %>
+<% end %>
+<%= session[:cart] %>
 

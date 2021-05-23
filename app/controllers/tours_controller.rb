@@ -1,6 +1,5 @@
 class ToursController < ApplicationController
   before_action :set_tour, only: %i[ show edit update destroy ]
-
   # GET /tours or /tours.json
   def index
     @tours = Tour.all
@@ -26,7 +25,6 @@ class ToursController < ApplicationController
   # POST /tours or /tours.json
   def create
     @tour = Tour.new(tour_params)
-
     respond_to do |format|
       if @tour.save
         format.html { redirect_to @tour, notice: "Tour was successfully created." }
@@ -68,6 +66,6 @@ class ToursController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tour_params
-      params.require(:tour).permit(:guide_id, {attraction_ids: []})
+      params.require(:tour).permit(:guide_id, :attraction_start_id, :attraction_end_id, {attraction_ids: []})
     end
 end
