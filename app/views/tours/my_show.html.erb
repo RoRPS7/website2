@@ -1,3 +1,28 @@
+<p> 
+Poniżej przedstawia się Twoja trasa:
+</p>
+<% @sum_costs = 0 %>
+<% @start_attraction = Attraction.find(@tour.attraction_start_id)%>
+<% @end_attraction = Attraction.find(@tour.attraction_end_id)%>
+<% @sum_costs += @start_attraction.price + @end_attraction.price %>
+Atrakcja, z której zaczynasz: <%= @start_attraction.name%>
+Atrakcje do obejrzenia podczas trasy:<% @tour.attractions.each do |attraction| %>
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading<%=attraction.id%>">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%=attraction.id%>" aria-expanded="true" aria-controls="collapse<%=attraction.id%>">
+        <%= attraction.name %>
+      </button>
+    </h2>
+    <div id="collapse<%=attraction.id%>" class="accordion-collapse collapse" aria-labelledby="heading<%=attraction.id%>" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        Krótki opis: <strong><%= attraction.description %></strong>
+        Opłata: <strong><%= attraction.price %></strong>
+      </div>
+    </div>
+  </div>
+</div>
+ <% end %>
 <p>
 
   <% @guide = Guide.find(@tour.guide_id) %>
@@ -8,13 +33,4 @@
     <strong> Telefon kontaktowy: </strong>
     <%= @guide.telnumber %>
     <% end %>
-</p>
-
-<p>
-  <strong>Trasa:</strong>
-  Start -->
-  <% @tour.attractions.each do |attraction| %>
-    <%= attraction.name %> -->
-  <% end %>
-  Koniec trasy
 </p>
