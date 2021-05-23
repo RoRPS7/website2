@@ -8,9 +8,7 @@
   <title>BialystokRoutes</title>
   <%= favicon_link_tag asset_path('logo.png') %>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <% unless  request.path == "/controller/action" %>
-  <%= csrf_meta_tags %>
-  <% end %>
+  <%= csrf_meta_tags %> 
   <%= csp_meta_tag %>
 
   <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
