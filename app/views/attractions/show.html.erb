@@ -1,49 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<%= stylesheet_link_tag "app", "attractions"%>
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Nazwa atrakcji:</strong>
-  <%= @attraction.name %>
-</p>
+  <h1 class="header"><%= @attraction.name %></h1>
 
-<p>
-  <strong>Opis obiektu:</strong>
-  <%= @attraction.description %>
-</p>
-<p>
+<body>
+<!-- TODO: tutaj pod headerem zdjecia-->
+  <p><%= @attraction.description %></p>
 
-  <% if @attraction.price > 0%>
-    <strong>Opłata:</strong>
-    <%= @attraction.price %>
-  <%else %>
-    <strong>Wstęp bezpłatny!</strong>
-  <%end %>
+  <p>
+    <% if @attraction.price > 0%>
+      <strong>Opłata:</strong>
+      <%= @attraction.price %>
+    <%else %>
+      <strong>Wstęp bezpłatny!</strong>
+    <%end %>
 
-</p>
-<p>
-  <strong>Czas zwiedzania:</strong>
-  <%= @attraction.sightseeing_time %>
-</p>
+  </p>
+  <p>
+    <strong>Czas zwiedzania:</strong>
+    <%= @attraction.sightseeing_time %>
+  </p>
 
-<p>
-  <ul>
-    <% if @attraction.categories %>
-      <strong>Rodzaj kategorii:</strong>
-      <% @attraction.categories.each do |category| %>
-        <li><%= category.name %></li>
-      <%end %>
-      <% else %>
-     <strong>Nie przypisano kategorii dla tego obiektu</strong>
-    <% end %>
-  </ul>
+  <p>
+    <strong>Kategorie:</strong>
+    <ul>
+      <% if @attraction.categories %>
 
-</p>
-<div style='width: 50%;'>
-  <div id="map" style='width: 100%; height: 400px;'></div>
-</div>
-<script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7vOoTEHKZlV89hsFiNdshzf74UMM_dnk&callback=initMap&libraries=&v=weekly"
-  async
-></script>
+        <% @attraction.categories.each do |category| %>
+          <li><%= category.name %></li>
+        <%end %>
+        <% else %>
+       <strong>Nie przypisano kategorii dla tego obiektu</strong>
+      <% end %>
+    </ul>
+
+  </p>
+<!--  <div style='width: 50%;'>-->
+    <div id="map"></div>
+<!--  </div>-->
+<br>
+
+<!--  pewnie usunac przyciski, bo jest panel admin-->
+  <%#if current_user && current_user.admin%>
+<!--    <%#= link_to 'Edytuj', edit_attraction_path(@attraction) %> |-->
+  <%#end%>
+
+  <%#= link_to 'Powrót', attractions_path %>
+
+</body>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7vOoTEHKZlV89hsFiNdshzf74UMM_dnk&callback=initMap&libraries=&v=weekly"
+  async></script>
+
 <script type="text/javascript">
     function initMap() {
         // The location of Uluru
@@ -60,8 +72,6 @@
         });
     }
 </script>
-<%if current_user && current_user.admin%>     
- <%= link_to 'Edytuj', edit_attraction_path(@attraction) %> |
-<%end%>
 
-<%= link_to 'Powrót', attractions_path %>
+
+</html>

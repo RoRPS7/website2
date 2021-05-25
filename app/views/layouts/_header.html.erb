@@ -1,14 +1,19 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<%= stylesheet_link_tag "app"%>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/" style="margin: auto;">
-    <%= image_tag("logo_only.png", height: '50', width: '50') %>
-    Bialystok Routes
+    <%= image_tag("Logo.png", width: '50px') %>
+
+<!--    <div class="header"></div>-->
+    BiałystokRoutes
     <%if current_user && current_user.admin%>
     <strong style="color:#dc3545">AdminPanel</strong>
     <% end %>
   </a>
   <div class="container-fluid" >
-    <!--      <div align="center">-->
-    <!--      </div>-->
     <button style="margin: auto; width: 25%;" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -41,5 +46,6 @@
       
       <%end%>
 
-
 </nav>
+
+</html>

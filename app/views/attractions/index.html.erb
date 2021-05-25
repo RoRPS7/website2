@@ -1,54 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<%= stylesheet_link_tag "app", "attractions"%>
+
 <p id="notice"><%= notice %></p>
 
-<h1> Wybierz swoje atrakcje! </h1>
+<h1 class="header"> Wybierz atrakcje</h1>
 <p>
-  Poniżej zamieszczono wszystkie atrakcje w Białymstoku i okolicy! Możesz się z nimi zapoznać
-  klikając w przycisk "Pokaż", lub od razu dodać do koszyka!
+  Oto oferowane przez nas atrakcje w Białymstoku i okolicy. Możesz się z nimi zapoznać
+  klikając na odpowiedni panel, lub dodać do koszyka.
 </p>
-<table>
-  <thead>
-    <tr>
-      <th>Nazwa obiektu</th>
-      <th>Oplata</th>
-      <th>Czas zwiedzania</th>
-      <th>Kategoria</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @attractions.each do |attraction| %>
-      <tr>
-        <td><%= attraction.name %></td>
-        <td><% if attraction.price > 0%>
-            <strong>Opłata:</strong>
-            <%= attraction.price %>
-          <%else %>
-            <strong>Obiekt bezpłatny</strong>
-          <%end %></td>
-        <td><%= attraction.sightseeing_time %></td>
-        <td><% attraction.categories.each do |category| %>
-            <%= category.name %>
+<body>
+
+<div class="container">
+  <% i = 0 %>
+  <% @attractions.each do |attraction| %>
+
+    <%= link_to attraction, class: "hyperlink" do %>
+
+        <div class="item">
+          <div id="attraction-image">
+          <h4 class="title"><%= attraction.name %></h4>
+          <div class="item-details">
+
+            <p><% if attraction.price > 0%>
+                <strong>Opłata:</strong>
+                <%= attraction.price %>
+              <%else %>
+                <strong>Obiekt bezpłatny</strong>
+              <%end %></p>
+            <p>Czas zwiedzania: <%= attraction.sightseeing_time %></p>
+            <p><% attraction.categories.each do |category| %>
+                <%= category.name %>
+              <% end %>
+            </p>
+
+            <% if current_user %>
+              <% if @cart.include?(attraction) %>
+                <%= button_to "Usuń z koszyka", remove_from_cart_path(attraction), method: :delete, class:"btn btn-danger" %>
+              <% else %>
+                <%= button_to "Dodaj do koszyka", add_to_cart_path(attraction), class:"btn btn-success" %>
+              <% end %>
             <% end %>
-            </td>
-        <td><%= link_to 'Pokaż', attraction, class:"btn btn-info"%></td>
+          </div>
+        </div>
+        </div>
 
-         <% if current_user %>
-          <% if @cart.include?(attraction) %>
-         <td><%= button_to "Usuń z koszyka", remove_from_cart_path(attraction), method: :delete, class:"btn btn-danger"%></td>
-          <% else %>
-          <td><%= button_to "Dodaj do koszyka", add_to_cart_path(attraction), class:"btn btn-success" %></td>
-          <% end %>
-         <% end %>
-
-      </tr>
     <% end %>
-  </tbody>
-</table>
-
+  <% end %>
+</div>
+</body>
 <br>
-<%if current_user && current_user.admin%>     
-  <%= link_to 'Nowa atrakcja', new_attraction_path %>
-<%end%>
 
-<%= link_to 'Powrót do strony głównej', root_path %>
+</html>

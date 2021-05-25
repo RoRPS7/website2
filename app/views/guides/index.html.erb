@@ -1,32 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<%= stylesheet_link_tag "app", "guides"%>
+
 <p id="notice"><%= notice %></p>
 
-<h1>Guides</h1>
+<h1 class="header">Przewodnicy</h1>
+<p>Planujesz wycieczkę?</p>
+<p>Wybierz przewodnika, który opowie Ci o atrakcjach:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Surname</th>
-      <th>Telnumber</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<body>
 
-  <tbody>
-    <% @guides.each do |guide| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= guide.name %></td>
-        <td><%= guide.surname %></td>
-        <td><%= guide.telnumber %></td>
-        <td><%= link_to 'Show', guide %></td>
-        <td><%= link_to 'Edit', edit_guide_path(guide) %></td>
-        <td><%= link_to 'Destroy', guide, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>Numer telefonu</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @guides.each do |guide| %>
+        <tr>
+          <td><%= guide.name %></td>
+          <td><%= guide.surname %></td>
+          <td><%= guide.telnumber %></td>
+          <td><%= link_to 'Show', guide %></td>
+          <td><%= link_to 'Edit', edit_guide_path(guide) %></td>
+          <td><%= link_to 'Destroy', guide, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Guide', new_guide_path %>
-<%= link_to 'Main Page', root_path %>
+  <br>
+
+  <%= link_to 'New Guide', new_guide_path %>
+  <%= link_to 'Main Page', root_path %>
+
+</body>
+
+</html>
