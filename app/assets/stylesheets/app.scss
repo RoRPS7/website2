@@ -29,3 +29,35 @@ body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.list-item {
+  background-color: #4CAF50;
+  color: white;
+  //cursor: pointer;
+  padding-left: 20px;
+  padding-top: 15px;
+  padding-right: 20px;
+  width: 75%;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  margin: auto;
+  height: 60px;
+  vertical-align: center;
+}
+
+.list-item:hover {
+  background-color: #4CAF00;
+}
+
+.list-left{
+  float: left;
+}
+
+.list-right{
+  float: right;
+}
+
+p{
+  text-align: center;
+}

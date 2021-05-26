@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html>
 
+<!--TODO: znaki plus i minus na przyciskach collapsible maja byc biale-->
+
 <%= stylesheet_link_tag "app", "tours"%>
 
 <p id="notice"><%= notice %></p>
 
 <h1 class="header">Przykładowe trasy</h1>
-<p>Brak pomysłu na wycieczkę? Skorzystaj z proponowanych tras:</p>
+<p>Brak pomysłu na wycieczkę?</p>
+<p>Skorzystaj z proponowanych tras:</p>
+<br>
 
 <body>
   <% @tours.each do |tour| %>
     <% if !tour.users.any?  %>
       <button type="button" class="collapsible-header">Nazwa trasy</button>
-      <div class="content">
+      <div class="collapsible-content">
         <h3>Atrakcje:</h3>
           <ol>
             <% tour.attractions.each do |attraction| %>
               <li>
+                <%= link_to attraction, class: "hyperlink" do %>
                 <%= attraction.name %>
-                <%= link_to 'Pokaż', attraction, class:"btn btn-info"%>
               </li>
+              <%end %>
             <%end %>
           </ol>
 
@@ -33,16 +38,20 @@
             <td> <%= button_to "Usuń z koszyka", class:"btn btn-danger"%> <td>
           <% end %>
 
-          <%if current_user && current_user.admin%>
+<!--          Te funkcje są w adminie-->
+          <%#if current_user && current_user.admin%>
             <%#= stylesheet_link_tag "inline" %>
-            <td> <%= link_to 'Edytuj', edit_tour_path(tour), class:"btn btn-danger" %> </td>
-            <td> <%= link_to 'Usuń',  data: { confirm: 'Czy jesteś pewien?' }, class:"btn btn-danger" %> </td>
+<!--            <td> <%#= link_to 'Edytuj', edit_tour_path(tour), class:"btn btn-danger" %> </td>-->
+<!--            <td> <%#= link_to 'Usuń',  data: { confirm: 'Czy jesteś pewien?' }, class:"btn btn-danger" %> </td>-->
             <!-- tour, method: :delete,-->
-          <%end%>
+          <%#end%>
         </table>
+        <br>
       </div>
+
     <%end %>
   <%end %>
+  <br>
 </body>
 
   <script>

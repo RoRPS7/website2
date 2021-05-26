@@ -12,14 +12,6 @@
   </div>
 </header>
 
-<!--<h2> Witamy na głównej stronie przewodników <strong style="color:mediumseagreen"> BialystokRoutes</strong></h2>-->
-<!--<p>Z naszą pomocą szybko zaplanujesz wycieczkę po Białymstoku!</p>-->
-<!--<p>-->
-<!--  Po zalogowaniu się możesz wybrać odpowiednie dla siebie atrakcje, dodając je do koszyka,-->
-<!--  a następnie z niego utworzyć optymalną trasę! Jednocześnie możesz wybrać naszego przewodnika,-->
-<!--  który opowie Ci o wszystkich atrakcjach.-->
-<!--</p>-->
-
 <body>
   <br>
   <p>
@@ -36,15 +28,15 @@
 
   <script type="text/javascript">
       function initMap() {
-          // The location of Uluru
+          // Location
           const company = { lat: 53.11860147357647, lng: 23.151445886937758 };
-          // The map, centered at Uluru
+          // Map centering
           const map = new google.maps.Map(document.getElementById("map"), {
               zoom: 16,
               center: company,
               gestureHandling: "none",
           });
-          // The marker, positioned at Uluru
+          // Marker
           var marker = new google.maps.Marker({
               position: company,
               map: map,
