@@ -10,21 +10,6 @@
   grid-gap: 10px;
 }
 
-#attraction-image {
-  min-height: 100%;
-  height: 300px;
-  max_width: 100%;
-
-  //background-image: url(Bstok.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-#attraction-image:hover {
-  background-color: rgba(0,0,0,0.3);
-}
-
-
 h4 {
   vertical-align: top;
   padding: 10px;
@@ -45,12 +30,20 @@ h4 {
 .item {
   display: flex;
   flex-direction: column;
+  //flex-wrap: wrap-reverse;
   min-height: 100%;
   height: 350px;
   max_width: 100%;
 
+  justify-content: space-between;
+
   background-image: url(Bstok.jpg);
   background-position: center;
+}
+
+.item:hover {
+  z-index: 999;
+  background-color: rgba(0,0,0,0.3);
 }
 
 .item-details{
@@ -58,16 +51,6 @@ h4 {
   //vertical-align: 300px;
   color: white;
 }
-
-//#item:hover {
-//  background-color: rgba(0,0,0,0.3);
-//  color: #4CAF00;
-//}
-
-//#item-details:hover {
-//  background-color: rgba(0,0,0,0.3);
-//  color: #4CAF00;
-//}
 
 .hyperlink {
   text-decoration: none;
@@ -84,4 +67,27 @@ h4:hover {
 p {
   vertical-align: text-bottom;
   //padding: 10px;
+}
+
+.parent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 350px;
+}
+
+.item .hidden-child{
+  z-index: 20;
+  visibility: hidden;
+  color: white;
+}
+
+.item:hover .hidden-child{
+  visibility: visible;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.hidden-child{
+  vertical-align: center;
 }

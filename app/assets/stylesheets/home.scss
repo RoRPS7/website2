@@ -30,8 +30,9 @@
 }
 
 .bg-text {
-  color: black;
-  font-weight: bold;
+  //color: black;
+  //font-weight: bold;
+
   position: absolute;
   top: 300px;
   left: 50%;
@@ -47,8 +48,11 @@
   text-align: center;
   align-self: center;
 
+  -webkit-text-fill-color: white;
   -webkit-text-stroke-width: 3px;
   -webkit-text-stroke-color: #4CAF50;
+
+  text-shadow: 5px 5px 10px rgba(0,0,0,0.5);
 }
 
 .title2{
@@ -57,6 +61,8 @@
   font-size: 36px;
   text-align: center;
   align-self: center;
+
+  text-shadow: 5px 5px 10px rgba(0,0,0,0.5);
 }
 
 body{

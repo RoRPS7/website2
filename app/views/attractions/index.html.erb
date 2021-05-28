@@ -14,41 +14,45 @@
 <body>
 
 <div class="container">
-  <% @attractions.each do |attraction| %>
-
+<% @attractions.each do |attraction| %>
     <%= link_to attraction, class: "hyperlink" do %>
+    <div class="item">
 
-        <div class="item">
-          <div id="attraction-image">
-          <h4 class="title"><%= attraction.name %></h4>
-          <div class="item-details">
+    <h4 class="title"><%= attraction.name %></h4>
 
-            <p><% if attraction.price > 0%>
-                <strong>Opłata:</strong>
-                <%= attraction.price %>
-              <%else %>
-                <strong>Obiekt bezpłatny</strong>
-              <%end %></p>
-            <p>Czas zwiedzania: <%= attraction.sightseeing_time %></p>
-            <p><% attraction.categories.each do |category| %>
-                <%= category.name %>
-              <% end %>
-            </p>
+    <div class="parent">
 
-            <% if current_user %>
-              <% if @cart.include?(attraction) %>
-                <%= button_to "Usuń z koszyka", remove_from_cart_path(attraction), method: :delete, class:"btn btn-danger" %>
-              <% else %>
-                <%= button_to "Dodaj do koszyka", add_to_cart_path(attraction), class:"btn btn-success" %>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-        </div>
+      <div class="hidden-child">
+        <br>
+        <p><% if attraction.price > 0%>
+          <strong>Opłata:</strong>
+          <%= attraction.price %>
+        <%else %>
+          <strong>Obiekt bezpłatny</strong>
+        <%end %></p>
+        <p>Czas zwiedzania: <%= attraction.sightseeing_time %></p>
+        <p><% attraction.categories.each do |category| %>
+            <%= category.name %>
+          <% end %>
+        </p>
+      </div>
 
-    <% end %>
-  <% end %>
+      <div class="hidden-child">
+        <% if current_user %>
+          <% if @cart.include?(attraction) %>
+            <%= button_to "Usuń z koszyka", remove_from_cart_path(attraction), method: :delete, class:"btn btn-danger" %>
+          <% else %>
+            <%= button_to "Dodaj do koszyka", add_to_cart_path(attraction), class:"btn btn-success" %>
+          <% end %>
+        <% end %>
+      </div>
+
+    </div>
+    </div>
+      <% end %>
+<% end %>
 </div>
+
 </body>
 <br>
 
