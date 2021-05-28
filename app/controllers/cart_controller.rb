@@ -2,6 +2,15 @@ class CartController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = PdfGenerator.new(@cart.each)
+        send_data pdf.render, type: "application/pdf",
+                  disposition: "inline" ,
+                  filename: "Wycieczka"
+      end
+    end
   end
   def new
     @tour = Tour.new
