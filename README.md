@@ -1,13 +1,9 @@
 # README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
+Projekt na rozwiązania szkieletowe w tworzeniu aplikacji 
+"Przewodnik po mieście"
 Things you may want to cover:
 
 * Ruby version 2.7.2
-
-* System dependencies
 
 * Configuration bundle install
 
@@ -15,10 +11,14 @@ Things you may want to cover:
 
 * Database initialization rails db:seed
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
 * Deployment instructions
 
+W celu uruchomienia aplikacji należy:
+<ol>
+<li> wpisać komendę "bundle install"</li>
+<li> zakomentować w pliku "routes.rb" od 3 do 5 linijki </li>
+<li> załadować bazę z schema.rb komendą "db:schema:load"</li>
+<li> załadować początkowe dane do tabel za pomocą "db:seed"</li>
+<li> uruchomić serwer za pomocą "rails s"</li>
+</ol>
 * ...
