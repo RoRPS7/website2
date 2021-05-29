@@ -20,5 +20,6 @@ W celu uruchomienia aplikacji należy:
 <li> załadować bazę z schema.rb komendą "db:schema:load"</li>
 <li> załadować początkowe dane do tabel za pomocą "db:seed"</li>
 <li> uruchomić serwer za pomocą "rails s"</li>
+<li>UWAGA DO TESTOWANIA! w celu zalogowania się do panelu administracyjnego nalezy użyć danych do logowania : email: "administrator@admin.pl", hasło: "administrator123"</li>
 </ol>
 * ...
