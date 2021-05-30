@@ -26,6 +26,10 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# Enhances the ease of running Rails app. Here it is used for asserting static assets, mainly images.
+gem 'rails_12factor', group: :production
+gem 'rails_serve_static_assets'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
