@@ -54,3 +54,9 @@ test:
   username: postgres
   password: 1234
   timeout: 5000
+
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: <%= ENV['DATABASE_URL'] %>
