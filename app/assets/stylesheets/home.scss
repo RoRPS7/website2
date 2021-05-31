@@ -18,7 +18,7 @@
  */
 
 .bg-image {
-  background-image: url(Banner.jpg);
+  background-image: asset_path("Banner.jpg");
 
   /* Full height */
   height: 350px;
