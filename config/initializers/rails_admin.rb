@@ -74,6 +74,12 @@ RailsAdmin.config do |config|
           end
         end
       end
+
+      field :image do
+        label "Obraz"
+      end
+
+      
     end
   end
 end

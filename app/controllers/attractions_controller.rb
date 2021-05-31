@@ -76,6 +76,6 @@ class AttractionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def attraction_params
-      params.require(:attraction).permit(:name, :x, :y, :price, :description, :sightseeing_time, {category_ids: []})
+      params.require(:attraction).permit(:name, :x, :y, :price, :description, :sightseeing_time, {category_ids: []}, :image)
     end
 end
