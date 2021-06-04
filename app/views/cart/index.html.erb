@@ -27,12 +27,20 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th scope="col">Nazwa obiektu</th>
-        <th scope="col">Oplata</th>
-        <th scope="col">Czas zwiedzania</th>
-        <th scope="col">Kategoria</th>
-        <th colspan="3"></th>
+        <th scope="colgroup" class="centered-cell">Nazwa obiektu</th>
+        <th scope="colgroup" class="centered-cell">Kategoria</th>
+        <th scope="colgroup" class="centered-cell">Oplata</th>
+        <th scope="colgroup" class="centered-cell">Czas zwiedzania</th>
+        <th scope="colgroup" ></th>
+<!--        <th colspan="3"></th>-->
       </tr>
+      <colgroup>
+        <col style="width:40%">
+        <col style="width:20%">
+        <col style="width:10%">
+        <col style="width:10%">
+        <col style="width:10%">
+      </colgroup>
       </thead>
       <tbody>
       <% @cart.each do |attraction| %>
@@ -42,17 +50,17 @@
               <%= attraction.name %>
             <%#= end %>
           </td>
-          <td><% if attraction.price > 0%>
+          <td><% attraction.categories.each do |category| %>
+              <%= category.name %>
+            <% end %>
+          </td>
+          <td class="centered-cell"><% if attraction.price > 0%>
               <strong>Opłata:</strong>
               <%= attraction.price %>
             <%else %>
               <strong>Obiekt bezpłatny</strong>
             <%end %></td>
-          <td><%= attraction.sightseeing_time %></td>
-          <td><% attraction.categories.each do |category| %>
-              <%= category.name %>
-            <% end %>
-          </td>
+          <td class="centered-cell"><%= attraction.sightseeing_time %></td>
           <td><%= button_to "Usuń z koszyka", remove_from_cart_path(attraction), method: :delete, class:"btn btn-danger"%></td>
         </tr>
       <% end %>
@@ -70,6 +78,7 @@
     <div class="actions">
       <%= f.submit "Utwórz trasę!",class: "btn btn-outline-success"%>
     </div>
+    <br>
 
     <%#= session[:cart] %>
   <% end %>
