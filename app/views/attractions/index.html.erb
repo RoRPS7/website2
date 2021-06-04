@@ -16,8 +16,19 @@
 <div class="container">
 <% @attractions.each do |attraction| %>
     <%= link_to attraction, class: "hyperlink" do %>
-    <div class="item">
 
+    <% if attraction.image.blank? %>
+
+         <div class="item">
+
+    <% else %>
+
+        <div class="item bg-img" style="background-image:url(<%= rails_blob_url(attraction.image); %>);width: 100%;
+        height: 100%;
+        @include background-image();">
+
+    <% end %>
+    
     <h4 class="title"><%= attraction.name %></h4>
 
     <div class="parent">
@@ -30,7 +41,7 @@
         <%else %>
           <strong>Obiekt bezpłatny</strong>
         <%end %></p>
-        <p>Czas zwiedzania: <%= attraction.sightseeing_time %></p>
+        <p>Czas zwiedzania: ok. <%= (attraction.sightseeing_time / 60.0).round(2) %> h</p>
         <p><% attraction.categories.each do |category| %>
             <%= category.name %>
           <% end %>
