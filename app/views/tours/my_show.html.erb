@@ -117,8 +117,8 @@
   <% @tour.attractions.each do |attraction| %>
     <button type="button" class="collapsible-header"><%= attraction.name %></button>
     <div class="collapsible-content">
-      <p><%= attraction.description %></p>
-      <p>Opłata: <%= attraction.price %></p>
+      <p style="text-align: justify;"><%= attraction.description %></p>
+      <p style="text-align: justify;"><strong>Opłata:</strong> <%= attraction.price %></p>
     </div>
   <% end %>
 
