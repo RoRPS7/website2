@@ -3,59 +3,63 @@
 
 <h1 class="header">Moje trasy</h1>
 
-<% @tours.each do |tour|%>
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="colgroup">#</th>
-      <th scope="colgroup">Przebieg trasy</th>
-      <th scope="colgroup">Koszt trasy</th>
-    </tr>
-    <colgroup>
-      <col style="width:5%">
-      <col style="width:75%">
-      <col style="width:10%">
-      <col style="width:10%">
-    </colgroup>
-  </thead>
-  <tbody>
-  <% @sum_costs = 0 %>
-  <% @start_attraction = Attraction.find(tour.attraction_start_id)%>
-  <% @end_attraction = Attraction.find(tour.attraction_end_id)%>
-  <% @sum_costs += @start_attraction.price + @end_attraction.price %>
-    <tr>
-      <th scope="row"><%= tour.id %></th>
-        <td>
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                    <th scope="colgroup">Atrakcja początkowa</th>
-                    <th scope="colgroup">Ciąg atrakcji</th>
-                    <th scope="colgroup">Atrakcja końcowa</th>
-                    </tr>
-                <colgroup>
-                  <col style="width:15%">
-                  <col style="width:70%">
-                  <col style="width:15%">
-                </colgroup>
-                </thead>
-                    <tbody>
-                        <tr>
-                            <td> <%= @start_attraction.name %> </td>
-                            <td> -->
-                            <% tour.attractions.each do |attraction| %>
-                            <%= attraction.name %> -->
-                            <% @sum_costs += attraction.price%>
-                            <% end %>
-                            </td>
-                            <td> <%= @end_attraction.name %> </td>
-                        </tr>
-                    </tbody>
-            </table>
-        </td>
-        <td><%= @sum_costs%></td>
-        <td><%= link_to 'Pokaż', my_tour_path(tour.id), class:"btn btn-info"%></td>
-    </tr>
-  </tbody>
-</table>
+<% if @tours.empty?%>
+  <p>Nie utworzono jeszcze trasy</p>
+<% else %>
+  <% @tours.each do |tour|%>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="colgroup">#</th>
+        <th scope="colgroup">Przebieg trasy</th>
+        <th scope="colgroup">Koszt trasy</th>
+      </tr>
+      <colgroup>
+        <col style="width:5%">
+        <col style="width:75%">
+        <col style="width:10%">
+        <col style="width:10%">
+      </colgroup>
+    </thead>
+    <tbody>
+    <% @sum_costs = 0 %>
+    <% @start_attraction = Attraction.find(tour.attraction_start_id)%>
+    <% @end_attraction = Attraction.find(tour.attraction_end_id)%>
+    <% @sum_costs += @start_attraction.price + @end_attraction.price %>
+      <tr>
+        <th scope="row"><%= tour.id %></th>
+          <td>
+              <table class="table">
+                  <thead class="thead-dark">
+                      <tr>
+                      <th scope="colgroup">Atrakcja początkowa</th>
+                      <th scope="colgroup">Ciąg atrakcji</th>
+                      <th scope="colgroup">Atrakcja końcowa</th>
+                      </tr>
+                  <colgroup>
+                    <col style="width:15%">
+                    <col style="width:70%">
+                    <col style="width:15%">
+                  </colgroup>
+                  </thead>
+                      <tbody>
+                          <tr>
+                              <td> <%= @start_attraction.name %> </td>
+                              <td> -->
+                              <% tour.attractions.each do |attraction| %>
+                              <%= attraction.name %> -->
+                              <% @sum_costs += attraction.price%>
+                              <% end %>
+                              </td>
+                              <td> <%= @end_attraction.name %> </td>
+                          </tr>
+                      </tbody>
+              </table>
+          </td>
+          <td><%= @sum_costs%></td>
+          <td><%= link_to 'Pokaż', my_tour_path(tour.id), class:"btn btn-info"%></td>
+      </tr>
+    </tbody>
+  </table>
+  <%end%>
 <%end%>

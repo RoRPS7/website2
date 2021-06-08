@@ -23,8 +23,8 @@ class CartController < ApplicationController
     respond_to do |format|
       if @tour.save
         current_user.tours << @tour
-        format.html { redirect_to @tour, notice: "Tour was successfully created." }
-        format.json { render :show, status: :created, location: @tour }
+        format.html { redirect_to my_tour_path(@tour.id), notice: "Tour was successfully created." }
+        format.json { render :show, status: :created, location: my_tour_path(@tour.id) }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @tour.errors, status: :unprocessable_entity }
