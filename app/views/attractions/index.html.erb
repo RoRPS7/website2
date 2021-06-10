@@ -14,7 +14,9 @@
 <body>
 
 <div class="container">
+
 <% @attractions.each do |attraction| %>
+
     <%= link_to attraction, class: "hyperlink" do %>
 
     <% if attraction.image.blank? %>
@@ -62,6 +64,11 @@
     </div>
       <% end %>
 <% end %>
+</div>
+
+<br>
+<div class="paginate">
+  <%= paginate @attractions %>
 </div>
 
 </body>

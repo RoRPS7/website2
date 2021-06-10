@@ -65,3 +65,10 @@ p{
 .hyperlink{
 
 }
+
+.paginate{
+    /*display: inline-block;*/
+    display: table;
+    margin: 0 auto;
+    text-align: center;
+}
