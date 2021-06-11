@@ -79,6 +79,9 @@ class ToursController < ApplicationController
 
     def set_my_tour
       @tour = current_user.tours.find(params[:id])
+      if @tour.nil?
+        @tour = Tour.find(params[:id])
+      end
     end
 
     # Only allow a list of trusted parameters through.
