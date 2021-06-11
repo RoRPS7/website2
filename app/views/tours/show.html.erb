@@ -1,25 +1,173 @@
-<p id="notice"><%= notice %></p>
+<!DOCTYPE html>
+<html>
 
-<p>
+<%= stylesheet_link_tag "application", "tours"%>
 
-  <% @guide = Guide.find(@tour.guide_id) %>
-  <% if !@guide.nil? %>
-    <strong>Przewodnik trasy:</strong>
-    <%= @guide.name %>
-    <%= @guide.surname %>
-    <strong> Telefon kontaktowy: </strong>
-    <%= @guide.telnumber %>
-    <% end %>
-</p>
+<script>
+      function initMap() {
+        const directionsService = new google.maps.DirectionsService();
+        const directionsRenderer = new google.maps.DirectionsRenderer();
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 6,
+          center: { lat: 41.85, lng: -87.65 },
+        });
+        directionsRenderer.setMap(map);
+        window.onload = calculateAndDisplayRoute(directionsService, directionsRenderer);
+      }
 
-<p>
-  <strong>Trasa:</strong>
-  Start -->
+      function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+        const waypts = [];
+        <% @waypoints_attraction = Attraction.where(id: @tour.attraction_ids) %>
+        <% @start_attraction = Attraction.find(@tour.attraction_start_id)%>
+        <% @end_attraction = Attraction.find(@tour.attraction_end_id)%>
+        <% @waypoints_attraction.each do |attraction| %>
+            waypts.push({
+              location: new google.maps.LatLng(<%= attraction.x %>,<%= attraction.y %>),
+              stopover: true,
+            });
+            <%end%>
+        directionsService.route(
+          {
+            origin: "<%= @start_attraction.name %>",
+            destination: "<%= @end_attraction.name %>",
+            waypoints: waypts,
+            optimizeWaypoints: true,
+            travelMode: google.maps.TravelMode.WALKING,
+            avoidTolls: true,
+          },
+          (response, status) => {
+            if (status === "OK" && response) {
+              directionsRenderer.setDirections(response);
+              const route = response.routes[0];
+              const summaryPanel = document.getElementById("directions-panel");
+              summaryPanel.innerHTML = "";
+              
+              // For each route, display summary information.
+              // summaryPanel.innerHTML += "Start:"
+              for (let i = 0; i < route.legs.length; i++) {
+                const routeSegment = i + 1;
+                summaryPanel.innerHTML +=
+                "<b> Segment: " + routeSegment + "</b><br> Instrukcja dotarcia: <br>";
+                  summaryPanel.innerHTML += "Start: " + route.legs[i].start_address + "<br>";
+                  summaryPanel.innerHTML += "Cel: " + route.legs[i].end_address + "<br>";
+                for( let j = 0; j < route.legs[i].steps.length; j++) {
+                    summaryPanel.innerHTML += route.legs[i].steps[j].instructions + ". ";
+                }
+                
+                summaryPanel.innerHTML += "<br><br>";
+                // summaryPanel.innerHTML += route.legs[i].distance.text + "<br>";
+              }
+            } else {
+              window.alert("Directions request failed due to " + status);
+            }
+          }
+        );
+      }
+    </script>
+
+
+
+<header>
+  <h1 class="header">Podgląd trasy</h1>
+</header>
+
+
+  <% @sum_costs = 0 %>
+  <% @start_attraction = Attraction.find(@tour.attraction_start_id)%>
+  <% @end_attraction = Attraction.find(@tour.attraction_end_id)%>
+  <% @sum_costs += @start_attraction.price + @end_attraction.price %>
+
+<body>
+  <div>Atrakcja początkowa: <%= @start_attraction.name%></div><br>
+  <div>Atrakcje, które zobaczysz na trasie:</div><br>
+
+  <%# @tour.attractions.each do |attraction| %>
+<!--    <div class="accordion" id="accordionExample">-->
+<!--      <div class="accordion-item">-->
+<!--        <h2 class="accordion-header" id="heading<%#=attraction.id%>">-->
+<!--          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%#=attraction.id%>" aria-expanded="true" aria-controls="collapse<%#=attraction.id%>">-->
+            <%#= attraction.name %>
+<!--          </button>-->
+<!--        </h2>-->
+<!--        <div id="collapse<%#=attraction.id%>" class="accordion-collapse collapse" aria-labelledby="heading<%#=attraction.id%>" data-bs-parent="#accordionExample">-->
+<!--          <div class="accordion-body">-->
+<!--            Krótki opis: <strong><%#= attraction.description %></strong>-->
+<!--            Opłata: <strong><%#= attraction.price %></strong>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="accordion" id="accordionExample">-->
+<!--      <div class="accordion-item">-->
+<!--        <h2 class="accordion-header" id="heading<%#=attraction.id%>">-->
+<!--          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%#=attraction.id%>" aria-expanded="true" aria-controls="collapse<%#=attraction.id%>">-->
+            <%#= attraction.name %>
+<!--          </button>-->
+<!--        </h2>-->
+<!--        <div id="collapse<%#=attraction.id%>" class="accordion-collapse collapse" aria-labelledby="heading<%#=attraction.id%>" data-bs-parent="#accordionExample">-->
+<!--          <div class="accordion-body">-->
+<!--            Krótki opis: <strong><%#= attraction.description %></strong>-->
+<!--            Opłata: <strong><%#= attraction.price %></strong>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
   <% @tour.attractions.each do |attraction| %>
-    <%= attraction.name %> -->
+    <button type="button" class="collapsible-header"><%= attraction.name %></button>
+    <div class="collapsible-content">
+      <p><%= attraction.description %></p>
+      <p>Opłata: <%= attraction.price %></p>
+    </div>
   <% end %>
-  Koniec trasy
-</p>
 
-<%= link_to 'Edit', edit_tour_path(@tour) %> |
-<%= link_to 'Back', tours_path %>
+  <br><br>
+
+  <div>
+    <% @guide = Guide.find(@tour.guide_id) %>
+    <% if !@guide.nil? %>
+      <strong>Przewodnik trasy:</strong>
+      <%= @guide.name %>
+      <%= @guide.surname %>
+
+      <br>
+      <strong> Telefon kontaktowy: </strong>
+      <%= @guide.telnumber %>
+      <% end %>
+  </div>
+
+  <br>
+  <div id="map" style="width:100%; height: 600px;"></div>
+  <br>
+
+  <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7vOoTEHKZlV89hsFiNdshzf74UMM_dnk&callback=initMap&libraries=&v=weekly"
+        async
+      ></script>
+      <div id="directions-panel"> </div>
+  <%#= link_to "DOWNLOAD PDF", my_tour(@tour, format: :pdf), style:"position:relative;top:0;right:0;"%>
+  <%= + request.original_fullpath.split("/")[2] %>
+  <a href="https://api.html2pdfrocket.com/pdf?value=<%= request.base_url + "/tours/" + request.original_fullpath.split("/")[2]%>&apikey=5785e69c-9662-4488-ae60-3d7607f5b368">Download PDF</a>
+
+  <%#= button_to "GENERUJ PDF", "#", method: :get, style:"position:relative;top:0;right:0;"%>
+  <br>
+
+</body>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible-header");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>
