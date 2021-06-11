@@ -1,6 +1,6 @@
 class ToursController < ApplicationController
   before_action :set_tour, only: %i[ show edit update destroy ]
-  before_action :set_my_tour, only: %i[ my_show destroy ]
+  before_action :set_my_tour, only: %i[ destroy ]
   # GET /tours or /tours.json
   def index
     @tours = Tour.all
@@ -11,6 +11,7 @@ class ToursController < ApplicationController
   end
 
   def my_show
+    @tour = current_user.tours.find(params[:id])
   end
 
   # GET /tours/1 or /tours/1.json
