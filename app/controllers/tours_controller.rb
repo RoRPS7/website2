@@ -12,9 +12,6 @@ class ToursController < ApplicationController
 
   def my_show
     @tour = current_user.tours.find(params[:id])
-    if @tour.nil?
-      @tour = Tour.find(params[:id])
-    end
   end
 
   # GET /tours/1 or /tours/1.json

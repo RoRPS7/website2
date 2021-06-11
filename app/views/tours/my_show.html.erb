@@ -147,8 +147,8 @@
       ></script>
       <div id="directions-panel"> </div>
   <%#= link_to "DOWNLOAD PDF", my_tour(@tour, format: :pdf), style:"position:relative;top:0;right:0;"%>
-  
-  <a href="https://api.html2pdfrocket.com/pdf?value=<%= request.base_url + request.original_fullpath %>&apikey=5785e69c-9662-4488-ae60-3d7607f5b368">Download PDF</a>
+  <%= + request.original_fullpath.split("/")[2] %>
+  <a href="https://api.html2pdfrocket.com/pdf?value=<%= request.base_url + "/tours/" + request.original_fullpath.split("/")[2]%>&apikey=5785e69c-9662-4488-ae60-3d7607f5b368">Download PDF</a>
 
   <%#= button_to "GENERUJ PDF", "#", method: :get, style:"position:relative;top:0;right:0;"%>
   <br>
