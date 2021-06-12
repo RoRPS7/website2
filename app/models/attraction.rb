@@ -10,4 +10,5 @@ class Attraction < ApplicationRecord
   validates :y, presence: true
   validates :price, presence: true
   validates :description, presence: true
+  validates :sightseeing_time, presence: true
 end

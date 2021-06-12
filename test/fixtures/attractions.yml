@@ -6,8 +6,7 @@ one:
   'y': 1.5
   price: 1.5
   description: MyString
-  time: MyText
-  category: one
+  sightseeing_time: 3
 
 two:
   name: MyString
@@ -15,5 +14,4 @@ two:
   'y': 1.5
   price: 1.5
   description: MyString
-  time: MyText
-  category: two
+  sightseeing_time: 3
