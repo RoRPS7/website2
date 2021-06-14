@@ -7,11 +7,11 @@
 
   <h1 class="header"><%= @attraction.name %></h1>
 
-<body>
+<body >
 <!-- TODO: tutaj pod headerem zdjecia-->
-  <p><%= @attraction.description %></p>
+  <p style="text-align: justify;"><%= @attraction.description %></p>
 
-  <p>
+  <p style="text-align: justify;">
     <% if @attraction.price > 0%>
       <strong>Opłata:</strong>
       <%= @attraction.price %>
@@ -20,12 +20,12 @@
     <%end %>
 
   </p>
-  <p>
+  <p style="text-align: justify;">
     <strong>Czas zwiedzania:</strong>
     <%= @attraction.sightseeing_time %>
   </p>
 
-  <p>
+  <p style="text-align: justify;">
     <strong>Kategorie:</strong>
     <ul>
       <% if @attraction.categories %>
@@ -39,17 +39,9 @@
     </ul>
 
   </p>
-<!--  <div style='width: 50%;'>-->
-    <div id="map"></div>
-<!--  </div>-->
-<br>
 
-<!--  pewnie usunac przyciski, bo jest panel admin-->
-  <%#if current_user && current_user.admin%>
-<!--    <%#= link_to 'Edytuj', edit_attraction_path(@attraction) %> |-->
-  <%#end%>
-
-  <%#= link_to 'Powrót', attractions_path %>
+  <div id="map"></div>
+  <br>
 
 </body>
 

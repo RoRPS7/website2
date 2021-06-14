@@ -1,67 +1,87 @@
-<%=  form_for :tour do |f| %> 
+<%=  form_for :tour do |f| %>
 
-<h1>Zawartość Twojego koszyka</h1>
-      <script>
+<%= stylesheet_link_tag "application", "tours"%>
+
+  <h1 class="header">Koszyk</h1>
+
+<h1>Zawartość:</h1>
+  <script>
       function showGuides () {
-      // Get the checkbox
-       var checkBox = document.getElementById("guide");
-      // Get the output text
-       var text = document.getElementById("guides_list");
+        // Get the checkbox
+        var checkBox = document.getElementById("guide");
+        // Get the output text
+        var text = document.getElementById("guides_list");
 
-       // If the checkbox is checked, display the output text
-      if (checkBox.checked == true){
-          text.style.display = "block";
-      } else {
-        text.style.display = "none";
+         // If the checkbox is checked, display the output text
+        if (checkBox.checked == true){
+            text.style.display = "block";
+        } else {
+          text.style.display = "none";
+        }
       }
-}
-      </script>
- <% if @cart.empty?%>
-    Koszyk jest pusty.
-    <% else %>
-<table class="table table-striped">
-  <thead>
-   <tr>
-      <th scope="col">Nazwa obiektu</th>
-      <th scope="col">Oplata</th>
-      <th scope="col">Czas zwiedzania</th>
-      <th scope="col">Kategoria</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-     <% @cart.each do |attraction| %>
-    <tr> 
-        <td><%= attraction.name %></td>
-        <td><% if attraction.price > 0%>
-            <strong>Opłata:</strong>
-            <%= attraction.price %>
-          <%else %>
-            <strong>Obiekt bezpłatny</strong>
-          <%end %></td>
-        <td><%= attraction.sightseeing_time %></td>
-        <td><% attraction.categories.each do |category| %>
-            <%= category.name %>
-            <% end %>
-        </td>
-        <td><%= button_to "Usuń z koszyka", remove_from_cart_path(attraction), method: :delete, class:"btn btn-danger"%></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-    Wybierz atrakcję z której będziesz zaczynać podróż:</br>
-    <%= f.select( :attraction_start_id, options_from_collection_for_select( @cart, "id", "name"))%></br> 
-    Wybierz atrakcję na której zakończysz podróż:</br> 
-     <%= f.select(:attraction_end_id, options_from_collection_for_select( @cart, "id", "name"))%> </br> </br> 
-     Czy chcesz wybrać przewodnika? <%= check_box_tag 'guide', 1, false, :onclick=>"showGuides()"%>
-     <p id="guides_list" style="display:none">
-      <%= f.select(:guide_id, options_from_collection_for_select(Guide.all, "id", "name_and_surname")) %>
-     </p>
+  </script>
 
-     <div class="actions">
-    <%= f.submit "Utwórz trasę!",class: "btn btn-outline-success"%>
-  </div> 
+  <% if @cart.empty?%>
+    <p>Koszyk jest pusty</p>
+  <% else %>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="colgroup" class="centered-cell">Nazwa obiektu</th>
+        <th scope="colgroup" class="centered-cell">Kategoria</th>
+        <th scope="colgroup" class="centered-cell">Oplata</th>
+        <th scope="colgroup" class="centered-cell">Czas zwiedzania</th>
+        <th scope="colgroup" ></th>
+<!--        <th colspan="3"></th>-->
+      </tr>
+      <colgroup>
+        <col style="width:40%">
+        <col style="width:20%">
+        <col style="width:10%">
+        <col style="width:10%">
+        <col style="width:10%">
+      </colgroup>
+      </thead>
+      <tbody>
+      <% @cart.each do |attraction| %>
+        <tr>
+          <td>
+            <%#= link_to attraction, class: "hyperlink" do %>
+              <%= attraction.name %>
+            <%#= end %>
+          </td>
+          <td><% attraction.categories.each do |category| %>
+              <%= category.name %>
+            <% end %>
+          </td>
+          <td class="centered-cell"><% if attraction.price > 0%>
+              <strong>Opłata:</strong>
+              <%= attraction.price %>
+            <%else %>
+              <strong>Obiekt bezpłatny</strong>
+            <%end %></td>
+          <td class="centered-cell"><%= attraction.sightseeing_time %></td>
+          <td><%= button_to "Usuń z koszyka", remove_from_cart_path(attraction), method: :delete, class:"btn btn-danger"%></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    Wybierz atrakcję z której rozpoczniesz podróż:</br>
+    <%= f.select( :attraction_start_id, options_from_collection_for_select( @cart, "id", "name"))%></br>
+    Wybierz atrakcję na której zakończysz podróż:</br>
+    <%= f.select(:attraction_end_id, options_from_collection_for_select( @cart, "id", "name"))%> </br> </br>
+    Czy chcesz wybrać przewodnika? <%= check_box_tag 'guide', 1, false, :onclick=>"showGuides()"%>
+    <p id="guides_list" style="display:none">
+      <%= f.select(:guide_id, options_from_collection_for_select(Guide.all, "id", "name_and_surname")) %>
+    </p>
+
+    <div class="actions">
+      <%= f.submit "Utwórz trasę!",class: "btn btn-outline-success"%>
+    </div>
+    <br>
+
+    <%#= session[:cart] %>
+  <% end %>
 <% end %>
-<% end %>
-<%= session[:cart] %>
+
 

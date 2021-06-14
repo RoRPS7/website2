@@ -35,16 +35,8 @@
             <td> <%= button_to "Dodaj do koszyka", class:"btn btn-success" %> <td>
             <%# end %> <!-- add_to_cart_path(attraction),-->
             <%# if current_user. include?(tour) %> <!--TODO: Dodaj trasę do konta. Ewentualnie zastapienie koszyka po zapytaniu jesli jest jakas zawartosc-->
-            <td> <%= button_to "Usuń z koszyka", class:"btn btn-danger"%> <td>
+<!--            <td> <%#= button_to "Usuń z koszyka", class:"btn btn-danger"%> <td>-->
           <% end %>
-
-<!--          Te funkcje są w adminie-->
-          <%#if current_user && current_user.admin%>
-            <%#= stylesheet_link_tag "inline" %>
-<!--            <td> <%#= link_to 'Edytuj', edit_tour_path(tour), class:"btn btn-danger" %> </td>-->
-<!--            <td> <%#= link_to 'Usuń',  data: { confirm: 'Czy jesteś pewien?' }, class:"btn btn-danger" %> </td>-->
-            <!-- tour, method: :delete,-->
-          <%#end%>
         </table>
         <br>
       </div>
