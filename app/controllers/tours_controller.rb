@@ -11,6 +11,21 @@ class ToursController < ApplicationController
   end
 
   def my_show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        instructions = params[:instruction]
+        pdf = PdfGenerator.new(current_user.tours.find(params[:id]),instructions)
+        send_data pdf.render, type: "application/pdf",
+                 disposition: "inline" ,
+                  filename: "Wycieczka"
+
+      end
+    end
+  end
+
+  def get_html
+    ActionController::Base.new.render_to_string(template: 'my_show.pdf.erb,')
   end
 
   # GET /tours/1 or /tours/1.json
@@ -82,6 +97,6 @@ class ToursController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tour_params
-      params.require(:tour).permit(:guide_id, :attraction_start_id, :attraction_end_id, {attraction_ids: []})
+      params.require(:tour).permit(:guide_id, :attraction_start_id, :attraction_end_id, {attraction_ids: []},:instruction)
     end
 end

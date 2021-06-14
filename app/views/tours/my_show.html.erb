@@ -102,4 +102,4 @@ Atrakcje do obejrzenia podczas trasy:<% @tour.attractions.each do |attraction| %
     ></script>
     <div id="directions-panel"> </div>
 
-<%= button_to "GENERUJ PDF", "#", method: :get, style:"position:relative;top:0;right:0;"%>
+<%= link_to "GENERUJ PDF",my_tour_path(format: :pdf,instruction: 'jd')  , method: :get, style:"position:relative;top:0;right:0;"%>
