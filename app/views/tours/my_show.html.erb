@@ -86,14 +86,15 @@ Atrakcje do obejrzenia podczas trasy:<% @tour.attractions.each do |attraction| %
  <% end %>
 <p>
 
-  <% @guide = Guide.find(@tour.guide_id) %>
-  <% if !@guide.nil? %>
+  <% if !@tour.guide_id.nil?%>
+    <% @guide = Guide.find(@tour.guide_id) %>
     <strong>Przewodnik trasy:</strong>
     <%= @guide.name %>
     <%= @guide.surname %>
     <strong> Telefon kontaktowy: </strong>
     <%= @guide.telnumber %>
-    <% end %>
+  <% end %>
+
 </p>
 <div id="map" style="width:100%; height: 600px;"></div>
 <script
