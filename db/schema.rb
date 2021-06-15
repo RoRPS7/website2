@@ -90,7 +90,6 @@ ActiveRecord::Schema.define(version: 2021_06_15_214633) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "guide_id", default: 0
-    t.integer "discount_id", default: nil
     t.integer "attraction_start_id"
     t.integer "attraction_end_id"
     t.integer "discount_id"
@@ -123,4 +122,7 @@ ActiveRecord::Schema.define(version: 2021_06_15_214633) do
   add_foreign_key "attractions_tours", "attractions"
   add_foreign_key "attractions_tours", "tours"
   add_foreign_key "tours", "discounts"
+  add_foreign_key "tours", "guides"
+  add_foreign_key "tours_users", "tours"
+  add_foreign_key "tours_users", "users"
 end
