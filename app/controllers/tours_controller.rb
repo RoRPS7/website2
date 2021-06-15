@@ -86,14 +86,6 @@ class ToursController < ApplicationController
     end
   end
 
-  def destroy
-    @tour.destroy
-    respond_to do |format|
-      format.html { redirect_to tours_url, notice: "Tour was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tour

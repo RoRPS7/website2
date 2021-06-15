@@ -10,11 +10,10 @@
 <body >
 
   <% if !@attraction.image.blank? %>
-<!--  Zdjecie atrakcji-->
-    <div class="item bg-img" style="background-image:url(<%= rails_blob_url(attraction.image); %>);width: 100%;
-    height: 100%; @include background-image();">
-
+    <%= image_tag(@attraction.image) %>
+    <br><br>
   <% end %>
+
 
   <p style="text-align: justify;"><%= @attraction.description %></p>
 

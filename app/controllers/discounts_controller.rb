@@ -6,54 +6,34 @@ class DiscountsController < ApplicationController
     @discounts = Discount.all
   end
 
-  # GET /discounts/1 or /discounts/1.json
+  # GET /discounts/1
   def show
+    render plain: "404 Not Found"
   end
 
   # GET /discounts/new
   def new
-    @discount = Discount.new
+    render plain: "404 Not Found"
   end
 
   # GET /discounts/1/edit
   def edit
+    render plain: "404 Not Found"
   end
 
   # POST /discounts or /discounts.json
   def create
-    @discount = Discount.new(discount_params)
-
-    respond_to do |format|
-      if @discount.save
-        format.html { redirect_to @discount, notice: "Discount was successfully created." }
-        format.json { render :show, status: :created, location: @discount }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @discount.errors, status: :unprocessable_entity }
-      end
-    end
+    render plain: "404 Not Found"
   end
 
   # PATCH/PUT /discounts/1 or /discounts/1.json
   def update
-    respond_to do |format|
-      if @discount.update(discount_params)
-        format.html { redirect_to @discount, notice: "Discount was successfully updated." }
-        format.json { render :show, status: :ok, location: @discount }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @discount.errors, status: :unprocessable_entity }
-      end
-    end
+    render plain: "404 Not Found"
   end
 
   # DELETE /discounts/1 or /discounts/1.json
   def destroy
-    @discount.destroy
-    respond_to do |format|
-      format.html { redirect_to discounts_url, notice: "Discount was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render plain: "404 Not Found"
   end
 
   private

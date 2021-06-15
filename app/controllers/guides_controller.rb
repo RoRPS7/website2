@@ -8,52 +8,32 @@ class GuidesController < ApplicationController
 
   # GET /guides/1 or /guides/1.json
   def show
+    render plain: "404 Not Found"
   end
 
   # GET /guides/new
   def new
-    @guide = Guide.new
+    render plain: "404 Not Found"
   end
 
   # GET /guides/1/edit
   def edit
+    render plain: "404 Not Found"
   end
 
   # POST /guides or /guides.json
   def create
-    @guide = Guide.new(guide_params)
-
-    respond_to do |format|
-      if @guide.save
-        format.html { redirect_to @guide, notice: "Guide was successfully created." }
-        format.json { render :show, status: :created, location: @guide }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @guide.errors, status: :unprocessable_entity }
-      end
-    end
+    render plain: "404 Not Found"
   end
 
   # PATCH/PUT /guides/1 or /guides/1.json
   def update
-    respond_to do |format|
-      if @guide.update(guide_params)
-        format.html { redirect_to @guide, notice: "Guide was successfully updated." }
-        format.json { render :show, status: :ok, location: @guide }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @guide.errors, status: :unprocessable_entity }
-      end
-    end
+    render plain: "404 Not Found"
   end
 
   # DELETE /guides/1 or /guides/1.json
   def destroy
-    @guide.destroy
-    respond_to do |format|
-      format.html { redirect_to guides_url, notice: "Guide was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render plain: "404 Not Found"
   end
 
   private
