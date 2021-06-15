@@ -72,7 +72,8 @@
     <%= f.select(:attraction_end_id, options_from_collection_for_select( @cart, "id", "name"))%> </br> </br>
     Czy chcesz wybrać przewodnika? <%= check_box_tag 'guide', 1, false, :onclick=>"showGuides()"%>
     <p id="guides_list" style="display:none">
-      <%= f.select(:guide_id, options_from_collection_for_select(Guide.all, "id", "name_and_surname")) %>
+      <%#= f.select(:guide_id, options_from_collection_for_select(Guide.all, "id", "name_and_surname")) %>
+      <%= f.select(:guide_id, options_from_collection_for_select(Guide.all, "id", "name_and_surname"), {:include_blank => 'Brak'}) %>
     </p>
 
     <div class="actions">
