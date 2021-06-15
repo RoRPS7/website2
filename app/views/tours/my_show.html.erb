@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag "application", "tours"%>
+
 <script>
       function initMap() {
         const directionsService = new google.maps.DirectionsService();
@@ -33,74 +35,119 @@
           (response, status) => {
             if (status === "OK" && response) {
               directionsRenderer.setDirections(response);
+              console.log(response);
               const route = response.routes[0];
               const summaryPanel = document.getElementById("directions-panel");
+              let summaryToPDF = "";
               summaryPanel.innerHTML = "";
-              
+              let total_distance = 0;
+              let total_time = 0;
               // For each route, display summary information.
               summaryPanel.innerHTML += "Start:"
               for (let i = 0; i < route.legs.length; i++) {
                   const routeSegment = i + 1;
-                  summaryPanel.innerHTML +=
-                  "<b> Segment: " + routeSegment + "</b><br> Instrukcja dotarcia: <br>";
+                    summaryPanel.innerHTML +=
+                    "<b> Segment: " + routeSegment + "</b><br> Instrukcja dotarcia: <br>";
+                    summaryToPDF += "Segment: " + routeSegment + " Instrukcja dotarcia: \n\n";
+                    summaryToPDF += route.legs[i].start_address + " do ";
                     summaryPanel.innerHTML += route.legs[i].start_address + " do ";
                     summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
-                  for( let j = 0; j < route.legs[i].steps.length; j++)
+                    summaryToPDF += route.legs[i].end_address + "\n\n";
+                    
+                  for( let j = 0; j < route.legs[i].steps.length; j++){
                     summaryPanel.innerHTML += route.legs[i].steps[j].instructions+ ". ";
-                
-                summaryPanel.innerHTML += "<br>"
+                    summaryToPDF += route.legs[i].steps[j].instructions+ ". ";
+                    total_distance += route.legs[i].steps[j].distance.value;
+                    total_time += route.legs[i].steps[j].duration.value;
+                  }
+                summaryPanel.innerHTML += "<br>";
+                summaryToPDF += "\n";
                   route.legs[i].distance.text + "<br><br><br>";
                 
               }
-            } else {
+              document.getElementById("total_durations").innerHTML= "Długość trasy: "+ total_distance/1000 + "km.";
+           
+              total_time += <%= @tour.totaltime %>
+              document.getElementById("total_time").innerHTML="Przybliżony czas przejścia: " + Math.round(total_time/60 ) +"min.";
+              document.getElementById("instruction").value=summaryToPDF;
+              document.getElementById("total_t").value="Przybliżony czas przejścia: " + Math.round(total_time/60 ) +"min.";
+                 document.getElementById("total_d").value= "Długość trasy: "+ total_distance/1000 + "km.";
+            } 
+            else {
               window.alert("Directions request failed due to " + status);
             }
           }
         );
       }
     </script>
-<p> 
-Poniżej przedstawia się Twoja trasa:
-</p>
+<h1 align="center"> 
+Plan trasy:
+</h1>
+<div class="container">
+<div id="left" style="width:50%;min-height:800px;float:left;padding-right:50px">
 <% @sum_costs = 0 %>
 <% @start_attraction = Attraction.find(@tour.attraction_start_id)%>
 <% @end_attraction = Attraction.find(@tour.attraction_end_id)%>
-<% @sum_costs += @start_attraction.price + @end_attraction.price %>
-Atrakcja, z której zaczynasz: <%= @start_attraction.name%>
-Atrakcje do obejrzenia podczas trasy:<% @tour.attractions.each do |attraction| %>
-<div class="accordion" id="accordionExample">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading<%=attraction.id%>">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%=attraction.id%>" aria-expanded="true" aria-controls="collapse<%=attraction.id%>">
-        <%= attraction.name %>
-      </button>
-    </h2>
-    <div id="collapse<%=attraction.id%>" class="accordion-collapse collapse" aria-labelledby="heading<%=attraction.id%>" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        Krótki opis: <strong><%= attraction.description %></strong>
-        Opłata: <strong><%= attraction.price %></strong>
-      </div>
-    </div>
-  </div>
-</div>
+<br/>
+<h2>
+Atrakcje do obejrzenia podczas trasy:
+</h2>
+<% if @start_attraction == @end_attraction%>
+Atrakcja, z której zaczynasz i kończysz trasę: <%= @start_attraction.name%> <br/>
+<% else%>
+Atrakcja, z której zaczynasz trasę: <%= @start_attraction.name%> <br/>
+Atrakcja, na której kończysz trasę: <%= @start_attraction.name%>
+<% end %>
+<% @tour.attractions.each do |attraction| %>
+  <h4>
+  <%= attraction.name %> : 
+  </h4>
+        <div class="accordion-body">
+          <strong> Opłata: </strong> <%= attraction.price %> zł<br/>
+          <strong> Czas zwiedzania:</strong> <%= attraction.sightseeing_time %> minut<br/>
+        </div>
  <% end %>
 <p>
 
   <% if !@tour.guide_id.nil?%>
     <% @guide = Guide.find(@tour.guide_id) %>
     <strong>Przewodnik trasy:</strong>
-    <%= @guide.name %>
-    <%= @guide.surname %>
+    <%= @guide.name_and_surname %>
     <strong> Telefon kontaktowy: </strong>
     <%= @guide.telnumber %>
   <% end %>
+  <div class="information">
+  <h3> INFORMACJE DOTYCZĄCE TRASY </h3>
+  Całkowita opłata za podróż: <%= @tour.sumcosts%> zł.
+   <% if @tour.discount_id%>
+    Całkowita opłata ze zniżką: <%= @tour.sumcosts - (@tour.sumcosts * (1/Discount.find(@tour.discount_id).percent)).round(2)%> zł.
+  <%end%>
 
+  <div id="total_durations"> </div>
+  <div id="total_time"> </div>
+  <%= form_with url: my_tour_path(format: :pdf), method: :get do |form| %>
+  <%= form.hidden_field :instruction %>
+  <%= form.hidden_field :total_d %>
+  <%= form.hidden_field :total_t %>
+  <%= form.submit "Wygeneruj PDF", class: "btn btn-success"%>
+<% end %>
+  </div>
 </p>
-<div id="map" style="width:100%; height: 600px;"></div>
+</div>
+
+<div id="right" style="width:50%;float:left;">
+<h2> Mapa i trasa przejścia </h2>
+<div id="map" style="width:100%;min-height:800px;"></div>
 <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7vOoTEHKZlV89hsFiNdshzf74UMM_dnk&callback=initMap&libraries=&v=weekly"
       async
     ></script>
-    <div id="directions-panel"> </div>
-
-<%= link_to "GENERUJ PDF",my_tour_path(format: :pdf,instruction: 'jd')  , method: :get, style:"position:relative;top:0;right:0;"%>
+<script>
+var left=document.getElementById('left').style.height;
+ document.getElementById('map').style.height=left;
+</script> 
+</div>
+</div>
+<h2> Instrukcja przejścia </h2>
+<div id="directions-panel"> </div>  
+</div>
