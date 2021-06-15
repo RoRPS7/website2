@@ -1,27 +1,71 @@
 <!DOCTYPE html>
 <html>
-
+<style>
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #ccc;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}
+</style>
 <%= stylesheet_link_tag "application", "guides"%>
 
 <p id="notice"><%= notice %></p>
 
 <h1 class="header">Przewodnicy</h1>
 <p>Planujesz wycieczkę?</p>
-<p>Wybierz przewodnika, który opowie Ci o atrakcjach:</p>
+<p>Wybierz jednego z <%= @guides.count %> naszych przewodników dodając go do trasy, który dokładniej opowie Ci o atrakcjach:</p>
 <br>
 
 <body>
+<% i = 0%>
 <% @guides.each do |guide| %>
-  <div class="list-item">
-    <div class="list-left"><%= guide.name %>
-    <%= guide.surname %></div>
-    <div class="list-right">Kontakt: <%= guide.telnumber %></div>
+  <% if i%2 == 0 %>
+  <div class="container" style="width:100vw;align:center;">
+    <div class="left" style="width:50%;float:left; padding-right: 30px;">
+     <blockquote>
+      <i><%= guide.description%> </i> <br/><br/>~ <b> <%= guide.name_and_surname%> </b>
+     </<blockquote>
+    </div>
+    <div class="right" style="float:right; margin:auto">
+    <%= image_tag(rails_blob_url(guide.image), height: '500', width: '500')%>
+    </div>
   </div>
+  
+<%else%>
+  <div class="container" style="width:100vw;align:center;">
+    
+    <div class="left" style="width:50%;float:left;">
+      <%= image_tag(rails_blob_url(guide.image), height: '500', width: '500')%>
+    </div>
 
-  <br>
+    <div class="right" style="width:50%;float:left;">
+      <blockquote>
+          <i><%= guide.description%> </i> <br/><br/>~<b> <%= guide.name_and_surname%> </b>
+      </<blockquote>
+    </div>
+
+  </div>
   <div style="clear: both;"></div>
+<%end%>
+  <% i=i+1 %>
+  <br>
+  <%if guide != @guides.last%>
+  <div style="clear: both;"><br><hr ><br/></div>
+  <%end%>
 <%end %>
-
+ <div style="clear: both;"></div>
 </body>
 </html>
 
