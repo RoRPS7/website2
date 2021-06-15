@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 2021_06_15_214633) do
     t.integer "guide_id", default: 0
     t.integer "attraction_start_id"
     t.integer "attraction_end_id"
-    t.integer "discount_id"
+    t.integer "discount_id", default: nil
     t.integer "totaltime"
     t.integer "sumcosts"
   end
