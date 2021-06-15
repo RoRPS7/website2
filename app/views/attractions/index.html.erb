@@ -27,7 +27,7 @@
 
         <div class="item bg-img" style="background-image:url(<%= rails_blob_url(attraction.image); %>);width: 100%;
         height: 100%;
-        @include background-image();"></div>
+        @include background-image();">
 
     <% end %>
     
@@ -39,7 +39,7 @@
         <br>
         <p><% if attraction.price > 0%>
           <strong>Opłata:</strong>
-          <%= attraction.price %>
+          <%= attraction.price %> zł
         <%else %>
           <strong>Obiekt bezpłatny</strong>
         <%end %></p>
@@ -67,9 +67,9 @@
 </div>
 
 <br>
-<!--<div class="paginate">-->
-  <%#= paginate @attractions %>
-<!--</div>-->
+<div class="paginate">
+  <%= paginate @attractions %>
+</div>
 
 </body>
 <br>
