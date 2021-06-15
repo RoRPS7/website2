@@ -17,7 +17,7 @@ class AttractionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create attraction" do
     assert_difference('Attraction.count') do
-      post attractions_url, params: { attraction: { category_id: @attraction.category_id, description: @attraction.description, name: @attraction.name, price: @attraction.price, time: @attraction.time, x: @attraction.x, y: @attraction.y } }
+      post attractions_url, params: { attraction: { description: @attraction.description, name: @attraction.name, price: @attraction.price, x: @attraction.x, y: @attraction.y, sightseeing_time: @attraction.sightseeing_time } }
     end
 
     assert_redirected_to attraction_url(Attraction.last)
@@ -34,7 +34,7 @@ class AttractionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update attraction" do
-    patch attraction_url(@attraction), params: { attraction: { category_id: @attraction.category_id, description: @attraction.description, name: @attraction.name, price: @attraction.price, time: @attraction.time, x: @attraction.x, y: @attraction.y } }
+    patch attraction_url(@attraction), params: { attraction: { description: @attraction.description, name: @attraction.name, price: @attraction.price, x: @attraction.x, y: @attraction.y, sightseeing_time: @attraction.sightseeing_time } }
     assert_redirected_to attraction_url(@attraction)
   end
 
