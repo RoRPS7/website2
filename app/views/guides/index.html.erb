@@ -25,6 +25,8 @@
     <div class="right" style="float:right; margin:auto">
       <% if !guide.image.blank? %>
         <%= image_tag(rails_blob_url(guide.image), height: '500', width: '500')%>
+      <%else%>
+        <%= image_tag("unknown_user.jpg", height: '500', width: '500') %>
       <% end %>
     </div>
   </div>
@@ -35,6 +37,8 @@
     <div class="left" style="width:50%;float:left;">
       <% if !guide.image.blank? %>
         <%= image_tag(rails_blob_url(guide.image), height: '500', width: '500')%>
+      <%else%>
+        <%= image_tag("unknown_user.jpg", height: '500', width: '500') %>
       <% end %>
     </div>
 
