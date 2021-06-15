@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_15_182418) do
+ActiveRecord::Schema.define(version: 2021_06_15_214633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,9 @@ ActiveRecord::Schema.define(version: 2021_06_15_182418) do
     t.integer "guide_id", default: 0
     t.integer "attraction_start_id"
     t.integer "attraction_end_id"
+    t.integer "discount_id"
+    t.integer "totaltime"
+    t.integer "sumcosts"
   end
 
   create_table "tours_users", id: false, force: :cascade do |t|
