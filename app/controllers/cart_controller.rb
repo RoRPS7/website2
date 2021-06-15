@@ -16,14 +16,14 @@ class CartController < ApplicationController
     @tour = Tour.new
   end
 
-  def destroy
+  def create
     @tour = Tour.new(tour_params)
-    @tour.attraction_ids = session[:cart]
+    @tour.attraction_ids = session[:cart].without(@tour.attraction_end_id, @tour.attraction_start_id)
     session[:cart].clear
     respond_to do |format|
       if @tour.save
         current_user.tours << @tour
-        format.html { redirect_to my_tour_path(@tour.id), notice: "Tour was successfully created." }
+        format.html { redirect_to my_tour_path(@tour.id), notice: "Trasa została dodana pomyślnie" }
         format.json { render :show, status: :created, location: my_tour_path(@tour.id) }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -31,6 +31,19 @@ class CartController < ApplicationController
       end
     end
   end
+
+  def add_to_cart
+    id=params[:id].to_i
+    session[:cart] << id unless session[:cart].include?(id)
+    redirect_to request.referrer
+  end
+
+  def remove_from_cart
+    id = params[:id].to_i
+    session[:cart].delete(id)
+    redirect_to request.referrer
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

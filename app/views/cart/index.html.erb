@@ -1,10 +1,9 @@
 <%=  form_for :tour do |f| %>
 
-<%= stylesheet_link_tag "application", "tours"%>
+<%= stylesheet_link_tag "application", "tours","style_quote"%>
 
   <h1 class="header">Koszyk</h1>
 
-<h1>Zawartość:</h1>
   <script>
       function showGuides () {
         // Get the checkbox
@@ -24,6 +23,10 @@
   <% if @cart.empty?%>
     <p>Koszyk jest pusty</p>
   <% else %>
+   <% if @cart.size < 3%>
+    <p> Aby utworzyć optymalny plan dodaj więcej atrakcji. </p>
+    <% else %>
+  <h1>Zawartość:</h1>
     <table class="table table-striped">
       <thead>
       <tr>
@@ -60,28 +63,31 @@
             <%else %>
               <strong>Obiekt bezpłatny</strong>
             <%end %></td>
-          <td class="centered-cell"><%= attraction.sightseeing_time %></td>
-          <td><%= button_to "Usuń z koszyka", remove_from_cart_path(attraction), method: :delete, class:"btn btn-danger"%></td>
+          <td class="centered-cell"><%= attraction.sightseeing_time %> minut</td>
+          <td><%= link_to "Usuń z koszyka", remove_from_cart_path(attraction), method: :delete, class:"btn btn-danger"%></td>
         </tr>
       <% end %>
       </tbody>
     </table>
-    Wybierz atrakcję z której rozpoczniesz podróż:</br>
-    <%= f.select( :attraction_start_id, options_from_collection_for_select( @cart, "id", "name"))%></br>
-    Wybierz atrakcję na której zakończysz podróż:</br>
-    <%= f.select(:attraction_end_id, options_from_collection_for_select( @cart, "id", "name"))%> </br> </br>
-    Czy chcesz wybrać przewodnika? <%= check_box_tag 'guide', 1, false, :onclick=>"showGuides()"%>
-    <p id="guides_list" style="display:none">
-      <%#= f.select(:guide_id, options_from_collection_for_select(Guide.all, "id", "name_and_surname")) %>
-      <%= f.select(:guide_id, options_from_collection_for_select(Guide.all, "id", "name_and_surname"), {:include_blank => 'Brak'}) %>
-    </p>
 
-    <div class="actions">
+    <blockquote>
+          Musisz wybrać atrakcje początkową i końcową, aby wygenerować optymalną trasę.<br/>
+        <b>UWAGA!</b> Możesz wybrać taką samą atrakcję na początek i koniec trasy. Na wygenerowanej mapie będzie oznaczony jako jeden znacznik.
+    </blockquote>
+
+    Wybierz atrakcję z której rozpoczniesz podróż:
+    <%= f.select( :attraction_start_id, options_from_collection_for_select( @cart, "id", "name"))%><br/><br/>
+    Wybierz atrakcję na której zakończysz podróż:
+    <%= f.select(:attraction_end_id, options_from_collection_for_select( @cart, "id", "name"))%> <br/> <br/>
+   Wybór przewodnika: (jeśli chcesz utworzyć trasę bez przewodnika, wybierz pole "brak)
+      <%= f.select(:guide_id, options_from_collection_for_select(Guide.all, "id", "name_and_surname"), {:include_blank => 'Brak'}) %><br/> <br/>
+     Wybór biletu:
+      <%= f.select(:discount_id, options_from_collection_for_select(Discount.all, "id", "name"), {:include_blank => 'Normalny'}) %> <br/> <br/>
+      <div class="actions">
       <%= f.submit "Utwórz trasę!",class: "btn btn-outline-success"%>
     </div>
     <br>
-
-    <%#= session[:cart] %>
+  <% end %>
   <% end %>
 <% end %>
 
