@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  
+
   <% if !@tour.guide_id.nil?%>
     <% @guide = Guide.find(@tour.guide_id) %>
     <strong>Przewodnik trasy:</strong>
