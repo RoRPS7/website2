@@ -38,8 +38,8 @@ class AttractionsController < ApplicationController
   def update
     respond_to do |format|
       if @attraction.update(attraction_params)
-        format.html { redirect_to @attraction, notice: "Attraction was successfully updated." }
-        # format.json { render :show, status: :ok, location: @attraction }
+        # format.html { redirect_to @attraction, notice: "Attraction was successfully updated." }
+        format.json { render :show, status: :ok, location: @attraction }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @attraction.errors, status: :unprocessable_entity }
@@ -51,8 +51,8 @@ class AttractionsController < ApplicationController
   def destroy
     @attraction.destroy
     respond_to do |format|
-      format.html { redirect_to attractions_url, notice: "Attraction was successfully destroyed." }
-      # format.json { head :no_content }
+      # format.html { redirect_to attractions_url, notice: "Attraction was successfully destroyed." }
+      format.json { head :no_content }
     end
   end
 
