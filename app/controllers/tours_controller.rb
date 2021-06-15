@@ -15,7 +15,16 @@ class ToursController < ApplicationController
       format.html
       format.pdf do
         instructions = params[:instruction]
-        pdf = PdfGenerator.new(current_user.tours.find(params[:id]),instructions)
+        instructions = instructions.to_s.gsub(/<br>/, "|")
+        instructions = instructions.gsub(/<b>/, " ")
+        instructions = instructions.gsub(/<\/b>/, " ")
+        instructions = instructions.gsub(/<div style="font-size:0.9em">/, "")
+        instructions = instructions.gsub(/<\/div>\. Segment/, "\n\n\nSegment")
+        instructions = instructions.gsub(/<\/div>/, ". ")
+        instructions = instructions.gsub(/<wbr\/>/, " ")
+        time = params[:total_t]
+        distance = params[:total_d] 
+        pdf = PdfGenerator.new(current_user.tours.find(params[:id]),instructions,time, distance)
         send_data pdf.render, type: "application/pdf",
                  disposition: "inline" ,
                   filename: "Wycieczka"
@@ -97,6 +106,6 @@ class ToursController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tour_params
-      params.require(:tour).permit(:guide_id, :attraction_start_id, :attraction_end_id, {attraction_ids: []},:instruction)
+      params.require(:tour).permit(:guide_id, :attraction_start_id, :attraction_end_id, {attraction_ids: []},:instruction, :discount_id, :information, :total_d, :total_t)
     end
 end

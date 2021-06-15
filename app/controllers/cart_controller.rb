@@ -12,6 +12,8 @@ class CartController < ApplicationController
       end
     end
   end
+
+
   def new
     @tour = Tour.new
   end
@@ -19,6 +21,18 @@ class CartController < ApplicationController
   def create
     @tour = Tour.new(tour_params)
     @tour.attraction_ids = session[:cart].without(@tour.attraction_end_id, @tour.attraction_start_id)
+    @tmp = Attraction.find(@tour.attraction_start_id)
+    @tour.totaltime =  @tmp.sightseeing_time
+    @tour.sumcosts = @tmp.price
+    if @tour.attraction_end_id != @tour.attraction_start_id
+      @tmp = Attraction.find(@tour.attraction_end_id)
+      @tour.totaltime =  @tmp.sightseeing_time
+      @tour.sumcosts = @tmp.price
+    end
+    @cart.each do |attraction|
+      @tour.totaltime += attraction.sightseeing_time
+      @tour.sumcosts += attraction.price
+    end
     session[:cart].clear
     respond_to do |format|
       if @tour.save
@@ -49,6 +63,6 @@ class CartController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     # Only allow a list of trusted parameters through.
     def tour_params()
-      params.require(:tour).permit(:guide_id, :attraction_start_id, :attraction_end_id, {attraction_ids: []})
+      params.require(:tour).permit(:guide_id, :attraction_start_id, :attraction_end_id, {attraction_ids: []}, :discount_id)
     end
 end
