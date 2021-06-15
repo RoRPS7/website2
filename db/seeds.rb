@@ -8,10 +8,11 @@
 
 Category.destroy_all
 Attraction.destroy_all
-Discount.destroy_all
 Attraction.destroy_all
-Guide.destroy_all
 Tour.destroy_all
+Discount.destroy_all
+Guide.destroy_all
+
 
 category_list = [
   'Teatr',
