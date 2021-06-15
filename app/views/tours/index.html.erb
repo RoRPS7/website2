@@ -10,14 +10,9 @@
 <p>Skorzystaj z proponowanych tras:</p>
 <br>
 
-<% sample_tours = [Tour.first, Tour.second, Tour.third] %>
-<% tour_number = 0 %>
-
 <body>
-  <% sample_tours.each do |tour| %>
-    <% if !tour.users.any?  %>
-      <% tour_number +=1 %>
-      <button type="button" class="collapsible-header">Trasa #<%= p tour_number %></button>
+  <% @tours.each do |tour| %>
+      <button type="button" class="collapsible-header">Trasa #<%= tour.id %></button>
       <div class="collapsible-content">
         <h3>Atrakcje:</h3>
           <ol>
@@ -33,7 +28,7 @@
         <table>
           <% if current_user %>
             <%# else %> <!--remove_from_cart_path(attraction), method: :delete,-->
-            <td> <%= button_to "Dodaj do koszyka", class:"btn btn-success" %> <td>
+            <td> <%= link_to "Dodaj do swoich tras",add_to_my_tours_path(tour.id), class:"btn btn-success" %> <td>
             <%# end %> <!-- add_to_cart_path(attraction),-->
             <%# if current_user. include?(tour) %> <!--TODO: Dodaj trasę do konta. Ewentualnie zastapienie koszyka po zapytaniu jesli jest jakas zawartosc-->
 <!--            <td> <%#= button_to "Usuń z koszyka", class:"btn btn-danger"%> <td>-->
@@ -42,7 +37,6 @@
         <br>
       </div>
 
-    <%end %>
   <%end %>
   <br>
 </body>

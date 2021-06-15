@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :tours
   get "my_tours", to: "tours#my", as: "my_tours"
   get "my_tours/:id", to: "tours#my_show", as: "my_tour"
+  get "tours/add_to_my_tours/:id", to: "tours#add_to_my_tours", as: "add_to_my_tours"
   resources :discounts
   resources :guides
   resources :attractions

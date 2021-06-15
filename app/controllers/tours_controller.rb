@@ -3,7 +3,7 @@ class ToursController < ApplicationController
   before_action :set_my_tour, only: %i[ my_show destroy ]
   # GET /tours or /tours.json
   def index
-    @tours = Tour.all
+    @tours = Tour.find(1,2,3,4)
   end
 
   def my
@@ -33,8 +33,10 @@ class ToursController < ApplicationController
     end
   end
 
-  def get_html
-    ActionController::Base.new.render_to_string(template: 'my_show.pdf.erb,')
+  def add_to_my_tours
+    @id=Tour.find(params[:id])
+    current_user.tours << @id unless current_user.tours.include?(@id)
+    redirect_to root_path, notice: "Trasa została dodana do Twojego konta"
   end
 
   # GET /tours/1 or /tours/1.json
