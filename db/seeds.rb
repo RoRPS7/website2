@@ -157,8 +157,6 @@ end
 
 p "Created #{Discount.count} discounts"
 
-User.new(email: "administrator@admin.pl", password: "administrator123", admin: true)
-
 guide_list = [
   [
     "Grzegorz",
