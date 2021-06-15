@@ -9,7 +9,9 @@
 Category.destroy_all
 Attraction.destroy_all
 Discount.destroy_all
+Attraction.destroy_all
 Guide.destroy_all
+Tour.destroy_all
 
 category_list = [
   'Teatr',
@@ -175,3 +177,30 @@ guide_list.each do |name, surname, telnumber|
 end
 
 p "Created #{Guide.count} guides"
+
+Tour_list = [
+  [
+    nil,
+    Attraction.fourth.id,
+    Attraction.fifth.id,
+    [Attraction.third.id, Attraction.fourth.id, Attraction.fifth.id, Attraction.second.id]
+  ],
+  [
+    nil,
+    Attraction.first.id,
+    Attraction.second.id,
+    [Attraction.first.id, Attraction.second.id, Attraction.third.id, Attraction.fifth.id, Attraction.fourth.id]
+  ],
+  [
+    nil,
+    Attraction.second.id,
+    Attraction.fifth.id,
+    [Attraction.first.id, Attraction.second.id, Attraction.third.id, Attraction.fifth.id]
+  ]
+]
+
+Tour_list.each do |guide_id, attraction_start_id, attraction_end_id, attraction_ids|
+  Tour.create( guide_id: guide_id, attraction_start_id: attraction_start_id, attraction_end_id: attraction_end_id, attraction_ids: attraction_ids)
+end
+
+p "Created #{Tour.count} Tours"
