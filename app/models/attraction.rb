@@ -4,7 +4,9 @@ class Attraction < ApplicationRecord
   has_many :primary_tours, :class_name => "Tour", :foreign_key => "attraction_start_id"
   has_many :secondary_tours, :class_name => "Tour", :foreign_key => "attraction_end_id"
   has_one_attached :image
-  
+
+  paginates_per 6
+
   validates :name, presence: true
   validates :x, presence: true
   validates :y, presence: true
