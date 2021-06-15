@@ -4,7 +4,7 @@ class AttractionsController < ApplicationController
   # GET /attractions or /attractions.json
   def index
     # @attractions = Attraction.all
-    @attractions = Attraction.page(params[:page]).per(6)
+    @attractions = Attraction.page(params[:page]).per(4)
   end
 
   # GET /attractions/1 or /attractions/1.json
