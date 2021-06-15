@@ -23,7 +23,9 @@
      </blockquote>
     </div>
     <div class="right" style="float:right; margin:auto">
-    <%= image_tag(rails_blob_url(guide.image), height: '500', width: '500')%>
+      <% if !guide.image.blank? %>
+        <%= image_tag(rails_blob_url(guide.image), height: '500', width: '500')%>
+      <% end %>
     </div>
   </div>
   
@@ -31,7 +33,9 @@
   <div class="container" style="width:100vw;align:center;">
     
     <div class="left" style="width:50%;float:left;">
-      <%= image_tag(rails_blob_url(guide.image), height: '500', width: '500')%>
+      <% if !guide.image.blank? %>
+        <%= image_tag(rails_blob_url(guide.image), height: '500', width: '500')%>
+      <% end %>
     </div>
 
     <div class="right" style="width:50%;float:left;">
