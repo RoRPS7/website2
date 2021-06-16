@@ -1,25 +1,148 @@
-<p id="notice"><%= notice %></p>
+<%= stylesheet_link_tag "application", "tours"%>
 
+<script>
+      function initMap() {
+        const directionsService = new google.maps.DirectionsService();
+        const directionsRenderer = new google.maps.DirectionsRenderer();
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 6,
+          center: { lat: 41.85, lng: -87.65 },
+        });
+        directionsRenderer.setMap(map);
+        window.onload = calculateAndDisplayRoute(directionsService, directionsRenderer);
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+        const waypts = [];
+        <% @waypoints_attraction = Attraction.where(id: @tour.attraction_ids) %>
+        <% @start_attraction = Attraction.find(@tour.attraction_start_id)%>
+        <% @end_attraction = Attraction.find(@tour.attraction_end_id)%>
+        <% @waypoints_attraction.each do |attraction| %>
+            waypts.push({
+              location: new google.maps.LatLng(<%= attraction.x %>,<%= attraction.y %>),
+              stopover: true,
+            });
+            <%end%>
+        directionsService.route(
+          {
+            origin: "<%= @start_attraction.name %>",
+            destination: "<%= @end_attraction.name %>",
+            waypoints: waypts,
+            optimizeWaypoints: true,
+            travelMode: google.maps.TravelMode.WALKING,
+            avoidTolls: true,
+          },
+          (response, status) => {
+            if (status === "OK" && response) {
+              directionsRenderer.setDirections(response);
+              console.log(response);
+              const route = response.routes[0];
+              const summaryPanel = document.getElementById("directions-panel");
+              let summaryToPDF = "";
+              summaryPanel.innerHTML = "";
+              let total_distance = 0;
+              let total_time = 0;
+              // For each route, display summary information.
+              summaryPanel.innerHTML += "Start:"
+              for (let i = 0; i < route.legs.length; i++) {
+                  const routeSegment = i + 1;
+                    summaryPanel.innerHTML +=
+                    "<b> Segment: " + routeSegment + "</b><br> Instrukcja dotarcia: <br>";
+                    summaryToPDF += "Segment: " + routeSegment + " Instrukcja dotarcia: \n\n";
+                    summaryToPDF += route.legs[i].start_address + " do ";
+                    summaryPanel.innerHTML += route.legs[i].start_address + " do ";
+                    summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
+                    summaryToPDF += route.legs[i].end_address + "\n\n";
+                    
+                  for( let j = 0; j < route.legs[i].steps.length; j++){
+                    summaryPanel.innerHTML += route.legs[i].steps[j].instructions+ ". ";
+                    summaryToPDF += route.legs[i].steps[j].instructions+ ". ";
+                    total_distance += route.legs[i].steps[j].distance.value;
+                    total_time += route.legs[i].steps[j].duration.value;
+                  }
+                summaryPanel.innerHTML += "<br>";
+                summaryToPDF += "\n";
+                  route.legs[i].distance.text + "<br><br><br>";
+                
+              }
+              document.getElementById("total_durations").innerHTML= "Długość trasy: "+ total_distance/1000 + "km.";
+           
+              total_time += <%= @tour.totaltime %>
+              document.getElementById("total_time").innerHTML="Przybliżony czas przejścia: " + Math.round(total_time/60 ) +"min.";
+              document.getElementById("instruction").value=summaryToPDF;
+              document.getElementById("total_t").value="Przybliżony czas przejścia: " + Math.round(total_time/60 ) +"min.";
+                 document.getElementById("total_d").value= "Długość trasy: "+ total_distance/1000 + "km.";
+            } 
+            else {
+              window.alert("Directions request failed due to " + status);
+            }
+          }
+        );
+      }
+    </script>
+<h1 align="center"> 
+Plan trasy:
+</h1>
+<div class="container">
+<div id="left" style="width:50%;min-height:800px;float:left;padding-right:50px">
+<% @sum_costs = 0 %>
+<% @start_attraction = Attraction.find(@tour.attraction_start_id)%>
+<% @end_attraction = Attraction.find(@tour.attraction_end_id)%>
+<br/>
+<h2>
+Atrakcje do obejrzenia podczas trasy:
+</h2>
+<% if @start_attraction == @end_attraction%>
+Atrakcja, z której zaczynasz i kończysz trasę: <%= @start_attraction.name%> <br/>
+<% else%>
+Atrakcja, z której zaczynasz trasę: <%= @start_attraction.name%> <br/>
+Atrakcja, na której kończysz trasę: <%= @start_attraction.name%>
+<% end %>
+<% @tour.attractions.each do |attraction| %>
+  <h4>
+  <%= attraction.name %> : 
+  </h4>
+        <div class="accordion-body">
+          <strong> Opłata: </strong> <%= attraction.price %> zł<br/>
+          <strong> Czas zwiedzania:</strong> <%= attraction.sightseeing_time %> minut<br/>
+        </div>
+ <% end %>
 <p>
 
   <% if !@tour.guide_id.nil?%>
     <% @guide = Guide.find(@tour.guide_id) %>
     <strong>Przewodnik trasy:</strong>
-    <%= @guide.name %>
-    <%= @guide.surname %>
+    <%= @guide.name_and_surname %>
     <strong> Telefon kontaktowy: </strong>
     <%= @guide.telnumber %>
-    <% end %>
-</p>
-
-<p>
-  <strong>Trasa:</strong>
-  Start -->
-  <% @tour.attractions.each do |attraction| %>
-    <%= attraction.name %> -->
   <% end %>
-  Koniec trasy
-</p>
+  <div class="information">
+  <h3> INFORMACJE DOTYCZĄCE TRASY </h3>
+  Całkowita opłata za podróż: <%= @tour.sumcosts%> zł.
+   <% if @tour.discount_id%>
+    Całkowita opłata ze zniżką: <%= @tour.sumcosts - (@tour.sumcosts * (1/Discount.find(@tour.discount_id).percent)).round(2)%> zł.
+  <%end%>
 
-<%= link_to 'Edit', edit_tour_path(@tour) %> |
-<%= link_to 'Back', tours_path %>
+  <div id="total_durations"> </div>
+  <div id="total_time"> </div>
+  <%= link_to "Dodaj do swoich tras",add_to_my_tours_path(@tour.id), class:"btn btn-success" %>
+  </div>
+</p>
+</div>
+
+<div id="right" style="width:50%;float:left;">
+<h2> Mapa i trasa przejścia </h2>
+<div id="map" style="width:100%;min-height:800px;"></div>
+<script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7vOoTEHKZlV89hsFiNdshzf74UMM_dnk&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+<script>
+var left=document.getElementById('left').style.height;
+ document.getElementById('map').style.height=left;
+</script> 
+</div>
+</div>
+<h2> Instrukcja przejścia </h2>
+<div id="directions-panel"> </div>  
+</div>

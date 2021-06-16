@@ -14,7 +14,9 @@
   <% @tours.each do |tour| %>
       <button type="button" class="collapsible-header">Trasa #<%= tour.id %></button>
       <div class="collapsible-content">
-        <h3>Atrakcje:</h3>
+        <h3>Atrakcja początkowa: </h3>
+        <%= link_to Attraction.find(tour.attraction_start_id), class: "hyperlink" do %> <%=Attraction.find(tour.attraction_start_id).name%> <%end %>
+        <h3>Atrakcje poboczne:</h3>
           <ol>
             <% tour.attractions.each do |attraction| %>
               <li>
@@ -24,6 +26,10 @@
               <%end %>
             <%end %>
           </ol>
+          <h3>Atrakcja końcowa: </h3> 
+          <%= link_to Attraction.find(tour.attraction_end_id), class: "hyperlink" do %> <%=Attraction.find(tour.attraction_end_id).name%>  <%end %>
+          <h3>Koszt trasy za bilety:<%= tour.sumcosts %> zł</h3> 
+          <%= link_to "Zobacz dokładny plan trasy", tour ,class:"btn btn-success"%></p>
 
         <table>
           <% if current_user %>
