@@ -8,16 +8,17 @@
   <h1 class="header"><%= @attraction.name %></h1>
 
 <body >
-
+  <div>
+  <div style="width:50%;float:left">
   <% if !@attraction.image.blank? %>
-    <%= image_tag(@attraction.image) %>
+    <%= image_tag(@attraction.image, height:600, width:600) %>
     <br><br>
   <% end %>
 
-
-  <p style="text-align: justify;"><%= @attraction.description %></p>
-
-  <p style="text-align: justify;">
+  </div>
+  <div style="width:50%;float:left">
+  <p style="text-align: justify;"><strong>Opis atrakcji:</strong><%= @attraction.description %></p>
+   <p style="text-align: justify;clear:both">
     <% if @attraction.price > 0%>
       <strong>Opłata:</strong>
       <%= @attraction.price %>
@@ -28,24 +29,20 @@
   </p>
   <p style="text-align: justify;">
     <strong>Czas zwiedzania:</strong>
-    <%= @attraction.sightseeing_time %>
+    <%= @attraction.sightseeing_time %> min.
   </p>
 
   <p style="text-align: justify;">
     <strong>Kategorie:</strong>
-    <ul>
-      <% if @attraction.categories %>
 
         <% @attraction.categories.each do |category| %>
-          <li><%= category.name %></li>
+<%= category.name %> <br/>
         <%end %>
-        <% else %>
-       <strong>Nie przypisano kategorii dla tego obiektu</strong>
-      <% end %>
-    </ul>
 
   </p>
-
+  </div>
+  </div>
+ <h3 style="clear:both">Lokalizacja na mapie </h3>
   <div id="map"></div>
   <br>
 
