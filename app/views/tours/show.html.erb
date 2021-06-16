@@ -125,7 +125,11 @@ Atrakcja, na której kończysz trasę: <%= @start_attraction.name%>
 
   <div id="total_durations"> </div>
   <div id="total_time"> </div>
+  <% if current_user %>
+  <% if !current_user.tours.include? @tour%>
   <%= link_to "Dodaj do swoich tras",add_to_my_tours_path(@tour.id), class:"btn btn-success" %>
+  <% end%>
+  <% end%>
   </div>
 </p>
 </div>

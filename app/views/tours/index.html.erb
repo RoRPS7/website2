@@ -34,7 +34,9 @@
         <table>
           <% if current_user %>
             <%# else %> <!--remove_from_cart_path(attraction), method: :delete,-->
-            <td> <%= link_to "Dodaj do swoich tras",add_to_my_tours_path(tour.id), class:"btn btn-success" %> <td>
+            <td> <% if !current_user.tours.include? tour%>
+  <%= link_to "Dodaj do swoich tras",add_to_my_tours_path(tour.id), class:"btn btn-success" %>
+  <% end%> <td>
             <%# end %> <!-- add_to_cart_path(attraction),-->
             <%# if current_user. include?(tour) %> <!--TODO: Dodaj trasę do konta. Ewentualnie zastapienie koszyka po zapytaniu jesli jest jakas zawartosc-->
 <!--            <td> <%#= button_to "Usuń z koszyka", class:"btn btn-danger"%> <td>-->
