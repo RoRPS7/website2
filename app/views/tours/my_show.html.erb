@@ -131,6 +131,8 @@ Atrakcja, na której kończysz trasę: <%= @start_attraction.name%>
   <%= form.hidden_field :total_t %>
   <%= form.submit "Wygeneruj PDF", class: "btn btn-success"%>
 <% end %>
+
+<%= button_to 'Usuń trasę',@tour, method: :delete, data: { confirm: 'Are you sure?' } %>
   </div>
 </p>
 </div>
