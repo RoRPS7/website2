@@ -120,7 +120,7 @@ Atrakcja, na której kończysz trasę: <%= @start_attraction.name%>
   <h3> INFORMACJE DOTYCZĄCE TRASY </h3>
   Całkowita opłata za podróż: <%= @tour.sumcosts%> zł.
    <% if @tour.discount_id%>
-    Całkowita opłata ze zniżką: <%= @tour.sumcosts - (@tour.sumcosts * (1/Discount.find(@tour.discount_id).percent)).round(2)%> zł.
+    Całkowita opłata ze zniżką: <%= @tour.sumcosts - (@tour.sumcosts * (Discount.find(@tour.discount_id).percent)/100).round(2)%> zł.
   <%end%>
 
   <div id="total_durations"> </div>

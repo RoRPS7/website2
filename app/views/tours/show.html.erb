@@ -92,11 +92,11 @@ Plan trasy:
 <h2>
 Atrakcje do obejrzenia podczas trasy:
 </h2>
-<% if @start_attraction == @end_attraction%>
-Atrakcja, z której zaczynasz i kończysz trasę: <%= @start_attraction.name%> <br/>
+<% if @start_attraction.name == @end_attraction.name %>
+Atrakcja, z której zaczynasz i kończysz trasę: <%= @start_attraction.name%>  <strong> Opłata: </strong> <%= @start_attraction.price %> zł<br/> <br/>
 <% else%>
-Atrakcja, z której zaczynasz trasę: <%= @start_attraction.name%> <br/>
-Atrakcja, na której kończysz trasę: <%= @start_attraction.name%>
+Atrakcja, z której zaczynasz trasę: <%= @start_attraction.name%> <strong> Opłata: </strong> <%= @start_attraction.price %> zł<br/>
+Atrakcja, na której kończysz trasę: <%= @start_attraction.name%> <strong> Opłata: </strong> <%= @end_attraction.price %> zł<br/><br/>
 <% end %>
 <% @tour.attractions.each do |attraction| %>
   <h4>
@@ -120,7 +120,7 @@ Atrakcja, na której kończysz trasę: <%= @start_attraction.name%>
   <h3> INFORMACJE DOTYCZĄCE TRASY </h3>
   Całkowita opłata za podróż: <%= @tour.sumcosts%> zł.
    <% if @tour.discount_id%>
-    Całkowita opłata ze zniżką: <%= @tour.sumcosts - (@tour.sumcosts * (1/Discount.find(@tour.discount_id).percent)).round(2)%> zł.
+    Całkowita opłata ze zniżką: <%= @tour.sumcosts - (@tour.sumcosts * (Discount.find(@tour.discount_id).percent)/100).round(2)%> zł.
   <%end%>
 
   <div id="total_durations"> </div>
