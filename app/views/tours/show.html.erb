@@ -96,7 +96,7 @@ Atrakcje do obejrzenia podczas trasy:
 Atrakcja, z której zaczynasz i kończysz trasę: <%= @start_attraction.name%>  <strong> Opłata: </strong> <%= @start_attraction.price %> zł<br/> <br/>
 <% else%>
 Atrakcja, z której zaczynasz trasę: <%= @start_attraction.name%> <strong> Opłata: </strong> <%= @start_attraction.price %> zł<br/>
-Atrakcja, na której kończysz trasę: <%= @start_attraction.name%> <strong> Opłata: </strong> <%= @end_attraction.price %> zł<br/><br/>
+Atrakcja, na której kończysz trasę: <%= @end_attraction.name%> <strong> Opłata: </strong> <%= @end_attraction.price %> zł<br/><br/>
 <% end %>
 <% @tour.attractions.each do |attraction| %>
   <h4>
