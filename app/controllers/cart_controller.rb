@@ -27,7 +27,7 @@ class CartController < ApplicationController
     if @tour.attraction_end_id != @tour.attraction_start_id
       @tmp = Attraction.find(@tour.attraction_end_id)
       @tour.totaltime =  @tmp.sightseeing_time
-      @tour.sumcosts = @tmp.price
+      @tour.sumcosts += @tmp.price
     end
     @cart.each do |attraction|
       @tour.totaltime += attraction.sightseeing_time
