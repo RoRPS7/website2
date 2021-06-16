@@ -29,7 +29,7 @@ class CartController < ApplicationController
       @tour.totaltime =  @tmp.sightseeing_time
       @tour.sumcosts += @tmp.price
     end
-    @cart.without(@tour.attraction_end_id, @tour.attraction_start_id).each do |attraction|
+    Attraction.where(id: @tour.attraction_ids).each do |attraction|
       @tour.totaltime += attraction.sightseeing_time
       @tour.sumcosts += attraction.price
     end
